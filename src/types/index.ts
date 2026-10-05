@@ -63,7 +63,19 @@ export interface DailySession {
   quiz_score: number | null;
   created_at: string;
   completed_at: string | null;
+  /** How many study cards the learner has gone through (saved after each card). */
+  study_position: number;
+  /** Quiz answers saved so far, keyed by question id. */
+  quiz_draft: QuizDraft;
 }
+
+export interface QuizDraft {
+  startedAt?: string;
+  answers?: Record<string, string>;
+}
+
+/** Words-per-day choices: 5 to 50 in steps of 5. */
+export const DAILY_TARGET_OPTIONS = Array.from({ length: 10 }, (_, i) => (i + 1) * 5);
 
 export interface DailySessionWord {
   session_id: string;

@@ -191,12 +191,28 @@ describe('daily session selection adapts to the learner', () => {
     );
   }
 
-  it('many overdue reviews -> 8 review + 2 new', async () => {
+  it('a few more reviews due than fit -> 8 review + 2 new', async () => {
+    const u = await createUser(db);
+    const ids = (await rows(`select id from vocabulary_words where cefr_level = 'A1' order by id limit 9`)).map((r) => r.id);
+    await seedProgress(u, ids, '2026-01-01T00:00:00Z');
+    const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    expect([s.review_word_count, s.new_word_count, s.total_word_count]).toEqual([8, 2, 10]);
+  });
+
+  it('busy day (1-2x the target due) -> 9 review + 1 new', async () => {
+    const u = await createUser(db);
+    const ids = (await rows(`select id from vocabulary_words where cefr_level = 'A1' order by id limit 15`)).map((r) => r.id);
+    await seedProgress(u, ids, '2026-01-01T00:00:00Z');
+    const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    expect([s.review_word_count, s.new_word_count, s.total_word_count]).toEqual([9, 1, 10]);
+  });
+
+  it('catch-up day (2x the target or more due) -> only reviews, no new words', async () => {
     const u = await createUser(db);
     const ids = (await rows(`select id from vocabulary_words where cefr_level = 'A1' order by id limit 30`)).map((r) => r.id);
     await seedProgress(u, ids, '2026-01-01T00:00:00Z');
     const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
-    expect([s.review_word_count, s.new_word_count, s.total_word_count]).toEqual([8, 2, 10]);
+    expect([s.review_word_count, s.new_word_count, s.total_word_count]).toEqual([10, 0, 10]);
   });
 
   it('a few due reviews -> they are all included, the rest are new', async () => {
@@ -221,7 +237,7 @@ describe('daily session selection adapts to the learner', () => {
     await seedProgress(u, ids, '2026-01-01T00:00:00Z');
     const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
     expect(s.total_word_count).toBe(5);
-    expect(s.new_word_count).toBe(1);
+    expect(s.new_word_count).toBe(0); // 40 due = catch-up day
   });
 
   it('no new words left -> fills the target with the earliest upcoming reviews', async () => {
@@ -330,5 +346,106 @@ describe('security (RLS + privileges)', () => {
     // nothing was stored by the failed attempts
     expect((await asUser(db, bob, () => rows('select * from quiz_attempts'))).length).toBe(0);
     await expect(call(ans(ids), sched(ids))).resolves.toBeTruthy();
+  });
+});
+
+// ---------------------------------------------------------------------------
+
+describe('resume where you left off', () => {
+  let u: string;
+  let other: string;
+  let s: Row;
+
+  beforeAll(async () => {
+    u = await createUser(db);
+    other = await createUser(db);
+    s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+  });
+
+  const save = (user: string, args: { pos?: number; q?: string; a?: string }) =>
+    asUser(db, user, () =>
+      db.query('select save_session_progress($1, $2, $3, $4)', [s.id, args.pos ?? null, args.q ?? null, args.a ?? null]),
+    );
+  const reload = () => asUser(db, u, () => one('select * from daily_sessions where id = $1', [s.id]));
+
+  it('saves the study card position after each card, and it only moves forward', async () => {
+    await save(u, { pos: 4 });
+    expect((await reload()).study_position).toBe(4);
+    await save(u, { pos: 2 }); // going back a card doesn't lose the furthest point
+    expect((await reload()).study_position).toBe(4);
+    await save(u, { pos: 99 });
+    expect((await reload()).study_position).toBe(10); // capped at the number of words
+  });
+
+  it('saves each quiz answer and never overwrites one already given', async () => {
+    const { items } = await loadSession(u, s.id);
+    const [w1, w2] = items.map((i) => i.word.id);
+    await save(u, { q: `${w1}:de_en`, a: 'appointment' });
+    await save(u, { q: `${w2}:article`, a: 'der' });
+    await save(u, { q: `${w1}:de_en`, a: 'changed my mind' });
+    const draft = (await reload()).quiz_draft;
+    expect(draft.answers).toEqual({ [`${w1}:de_en`]: 'appointment', [`${w2}:article`]: 'der' });
+    expect(draft.startedAt).toBeTruthy();
+  });
+
+  it('rejects answers for words outside the session, and other users', async () => {
+    await expect(save(u, { q: '999999:de_en', a: 'x' })).rejects.toThrow(/invalid answer/);
+    await expect(save(u, { q: "1; drop table x", a: 'x' })).rejects.toThrow(/invalid answer/);
+    await expect(save(other, { pos: 3 })).rejects.toThrow(/session not found/);
+  });
+
+  it('a resumed quiz is identical, so saved answers still match their questions', async () => {
+    const { items, pool } = await loadSession(u, s.id);
+    const quizItems = items.map((i) => ({ word: i.word, progress: i.progress }));
+    expect(generateQuiz(quizItems, pool, s.id)).toEqual(generateQuiz(quizItems, pool, s.id));
+  });
+
+  it('nothing can be saved once the quiz is submitted', async () => {
+    await takeQuiz(u, s.id, new Date(), 0);
+    await expect(save(u, { pos: 1 })).rejects.toThrow(/already completed/);
+  });
+});
+
+describe('words per day: 5 to 50 in steps of 5', () => {
+  const setTarget = (user: string, n: number) => asUser(db, user, () => one('select update_daily_target($1) as r', [n]));
+
+  it('accepts 5, 10 … 50 and rejects anything else', async () => {
+    const u = await createUser(db);
+    for (const n of [5, 25, 50]) expect((await setTarget(u, n)).r.profile.daily_word_target).toBe(n);
+    for (const n of [0, 3, 7, 55, 100]) await expect(setTarget(u, n)).rejects.toThrow(/check constraint/);
+    // the direct profile update is held to the same rule
+    await expect(asUser(db, u, () => db.query('update profiles set daily_word_target = 12 where id = auth.uid()'))).rejects.toThrow(/check constraint/);
+  });
+
+  it('rebuilds today\'s lesson right away if it has not been started', async () => {
+    const u = await createUser(db);
+    const before = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    expect(before.total_word_count).toBe(10);
+    const r = (await setTarget(u, 25)).r;
+    expect(r.today_updated).toBe(true);
+    const after = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    expect(after.total_word_count).toBe(25);
+    expect((await one('select count(*)::int as n from daily_session_words where session_id = $1', [after.id])).n).toBe(25);
+  });
+
+  it('keeps today\'s lesson as it is once started, and applies from the next day', async () => {
+    const u = await createUser(db);
+    const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    await asUser(db, u, () => db.query('select save_session_progress($1, 1)', [s.id]));
+    const r = (await setTarget(u, 40)).r;
+    expect(r.today_updated).toBe(false);
+    expect((await asUser(db, u, () => one('select * from create_my_daily_session()'))).total_word_count).toBe(10);
+    const tomorrow = addDays(localDate(TZ), 1);
+    const next = await one('select * from create_daily_session_for($1, $2)', [u, tomorrow]);
+    expect(next.total_word_count).toBe(40);
+  });
+
+  it('works with 50 words: the quiz has 50 questions, one per word', async () => {
+    const u = await createUser(db, { target: 50 });
+    const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    expect(s.total_word_count).toBe(50);
+    const { quiz, attempt } = await takeQuiz(u, s.id, new Date(), 5);
+    expect(quiz).toHaveLength(50);
+    expect(attempt.score).toBe(45);
   });
 });

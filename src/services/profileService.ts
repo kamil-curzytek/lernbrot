@@ -22,3 +22,9 @@ export async function updateSettings(
 ): Promise<Profile> {
   return unwrap(await db().from('profiles').update(patch).eq('id', userId).select('*').single());
 }
+
+/** Changes words per day (5..50, steps of 5). Rebuilds today's session if it hasn't been started yet. */
+export async function updateDailyTarget(target: number): Promise<{ profile: Profile; todayUpdated: boolean }> {
+  const res = unwrap(await db().rpc('update_daily_target', { p_target: target })) as { profile: Profile; today_updated: boolean };
+  return { profile: res.profile, todayUpdated: res.today_updated };
+}

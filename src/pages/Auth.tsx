@@ -39,9 +39,9 @@ export default function AuthPage() {
       <div className="stack" style={{ marginTop: '8vh' }}>
         <div className="center">
           <h1>
-            German<span style={{ color: 'var(--accent)' }}>izer</span>
+            Lern<span style={{ color: 'var(--accent)' }}>brot</span>
           </h1>
-          <p className="muted">Learn German, one useful step at a time.</p>
+          <p className="muted">Your daily bread of German.</p>
         </div>
         <form className="card stack" onSubmit={submit}>
           <h2>{mode === 'signin' ? 'Sign in' : 'Create your account'}</h2>

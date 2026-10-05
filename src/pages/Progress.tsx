@@ -4,7 +4,8 @@ import { StatTile } from '../components/dashboard/StatTile';
 import { useAsync } from '../hooks/useAsync';
 import { browserTimeZone } from '../lib/time';
 import { getDashboardStats } from '../services/progressService';
-import { updateSettings } from '../services/profileService';
+import { DailyTargetPicker } from '../components/dashboard/DailyTargetPicker';
+import { updateDailyTarget, updateSettings } from '../services/profileService';
 import { listAttempts } from '../services/quizService';
 import { CEFR_LEVELS, type CefrLevel } from '../types';
 
@@ -16,7 +17,6 @@ export default function Progress() {
   const attempts = useAsync(() => listAttempts(14), []);
 
   const [level, setLevel] = useState<CefrLevel>(profile.current_cefr_level);
-  const [target, setTarget] = useState(profile.daily_word_target);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const deviceTz = browserTimeZone();
@@ -27,6 +27,20 @@ export default function Progress() {
     try {
       setProfile(await updateSettings(user.id, patch));
       setMessage('Saved. Changes apply from your next daily session.');
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : String(e));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function saveTarget(n: number) {
+    setSaving(true);
+    setMessage(null);
+    try {
+      const { profile: updated, todayUpdated } = await updateDailyTarget(n);
+      setProfile(updated);
+      setMessage(todayUpdated ? `Saved. Today's lesson now has ${n} words.` : `Saved. You'll get ${n} words a day from your next lesson.`);
     } catch (e) {
       setMessage(e instanceof Error ? e.message : String(e));
     } finally {
@@ -91,17 +105,17 @@ export default function Progress() {
             ))}
           </select>
         </label>
-        <label className="field">
-          <span>Words per day</span>
-          <input className="input" type="number" min={3} max={30} value={target} onChange={(e) => setTarget(Number(e.target.value))} />
-        </label>
         <button
-          className="btn btn-primary"
-          disabled={saving || (level === profile.current_cefr_level && target === profile.daily_word_target) || target < 3 || target > 30}
-          onClick={() => save({ current_cefr_level: level, daily_word_target: target })}
+          className="btn"
+          disabled={saving || level === profile.current_cefr_level}
+          onClick={() => save({ current_cefr_level: level })}
         >
-          Save
+          Save level
         </button>
+        <div className="field">
+          <span className="muted small" style={{ display: 'block', marginBottom: 6 }}>Words per day</span>
+          <DailyTargetPicker value={profile.daily_word_target} onChange={saveTarget} disabled={saving} />
+        </div>
         <div className="small muted">
           Timezone: <strong>{profile.timezone}</strong>
           {deviceTz !== profile.timezone && (

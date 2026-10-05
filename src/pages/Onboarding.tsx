@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DailyTargetPicker } from '../components/dashboard/DailyTargetPicker';
 import { SignOutButton } from '../components/layout/AppShell';
 import { supabase } from '../lib/supabase/client';
 import { browserTimeZone } from '../lib/time';
@@ -14,7 +15,6 @@ const LEVELS: { label: string; level: CefrLevel; hint: string }[] = [
   { label: 'B2', level: 'B2', hint: 'I want to sound more natural' },
 ];
 
-const TARGETS = [5, 10, 15, 20];
 
 export default function Onboarding({ userId, onDone }: { userId: string; onDone: (p: Profile) => void }) {
   const navigate = useNavigate();
@@ -68,15 +68,8 @@ export default function Onboarding({ userId, onDone }: { userId: string; onDone:
         ) : (
           <div className="card stack">
             <h2>How many words per day?</h2>
-            <div className="segmented">
-              {TARGETS.map((t) => (
-                <button key={t} className={target === t ? 'selected' : ''} onClick={() => setTarget(t)}>
-                  {t}
-                  {t === 10 && <div className="small muted">recommended</div>}
-                </button>
-              ))}
-            </div>
-            <p className="muted small">You can change this later in Progress.</p>
+            <DailyTargetPicker value={target} onChange={setTarget} disabled={busy} />
+            <p className="muted small">10 is a good start (about 10 minutes a day). You can change it any time from the home screen.</p>
             {error && <div className="alert">{error}</div>}
             <div className="row">
               <button className="btn" onClick={() => setStep(1)} disabled={busy}>

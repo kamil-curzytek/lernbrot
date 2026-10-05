@@ -34,3 +34,13 @@ export async function getSessionItems(sessionId: string): Promise<SessionItem[]>
     grammarTopics: grammar.get(r.word_id) ?? [],
   }));
 }
+
+/** Remembers how far the learner got through the study cards (only moves forward). */
+export async function saveStudyPosition(sessionId: string, position: number): Promise<void> {
+  unwrap(await db().rpc('save_session_progress', { p_session_id: sessionId, p_study_position: position }));
+}
+
+/** Saves one quiz answer as soon as it is given. An answer already saved is never replaced. */
+export async function saveQuizAnswer(sessionId: string, questionId: string, answer: string): Promise<void> {
+  unwrap(await db().rpc('save_session_progress', { p_session_id: sessionId, p_question_id: questionId, p_answer: answer }));
+}

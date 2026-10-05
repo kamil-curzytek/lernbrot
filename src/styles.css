@@ -154,6 +154,10 @@ label.field > span { display: block; font-size: 0.875rem; color: var(--muted); m
   padding: 12px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); cursor: pointer;
 }
 .segmented button.selected { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.segmented button:disabled { opacity: 0.6; cursor: wait; }
+.target-picker { grid-template-columns: repeat(5, 1fr); }
+.target-picker button { padding: 10px 4px; }
+.link-btn { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; font-size: inherit; }
 
 .progress-bar { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
 .progress-bar > div { height: 100%; background: var(--accent); transition: width 0.25s; }

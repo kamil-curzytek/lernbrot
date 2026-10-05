@@ -1,12 +1,13 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../AppContext';
 import { QuestionView } from '../components/quiz/QuestionView';
 import { QuizResults } from '../components/quiz/QuizResults';
 import { useAsync } from '../hooks/useAsync';
 import { useTodaySession } from '../hooks/useTodaySession';
+import { saveQuizAnswer } from '../services/dailySessionService';
 import { buildQuizForSession, getAttemptForSession, submitQuiz } from '../services/quizService';
-import type { SessionItem } from '../types';
+import type { DailySession, SessionItem } from '../types';
 
 export default function Quiz() {
   const today = useTodaySession();
@@ -21,7 +22,7 @@ export default function Quiz() {
   const { session, items } = today.data;
   return session.status === 'completed'
     ? <SavedResults sessionId={session.id} items={items} />
-    : <RunQuiz sessionId={session.id} items={items} />;
+    : <RunQuiz session={session} items={items} />;
 }
 
 function SavedResults({ sessionId, items }: { sessionId: string; items: SessionItem[] }) {
@@ -40,18 +41,29 @@ function SavedResults({ sessionId, items }: { sessionId: string; items: SessionI
   );
 }
 
-function RunQuiz({ sessionId, items }: { sessionId: string; items: SessionItem[] }) {
+function RunQuiz({ session, items }: { session: DailySession; items: SessionItem[] }) {
+  const sessionId = session.id;
   const { profile } = useApp();
   const quiz = useAsync(() => buildQuizForSession(sessionId, items), [sessionId]);
-  const [index, setIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  // Answers saved earlier (this device or another) are restored and stay locked.
+  const [answers, setAnswers] = useState<Record<string, string>>(() => ({ ...(session.quiz_draft.answers ?? {}) }));
+  const [index, setIndex] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [answerSaveFailed, setAnswerSaveFailed] = useState(false);
   const [result, setResult] = useState<{ score: number; total: number; incorrect: number[] } | null>(null);
-  const startedAt = useRef(Date.now());
+  const startedAt = useRef(session.quiz_draft.startedAt ? Date.parse(session.quiz_draft.startedAt) : Date.now());
 
-  if (quiz.loading) return <div className="loading">Building your quiz…</div>;
-  if (quiz.error || !quiz.data) return <div className="alert">Could not build the quiz: {quiz.error}</div>;
+  // Continue at the first question that has no saved answer.
+  useEffect(() => {
+    if (quiz.data && index === null) {
+      const firstOpen = quiz.data.findIndex((q) => answers[q.id] === undefined);
+      setIndex(firstOpen === -1 ? quiz.data.length - 1 : firstOpen);
+    }
+  }, [quiz.data, index, answers]);
+
+  if (quiz.loading || (quiz.data && index === null)) return <div className="loading">Building your quiz…</div>;
+  if (quiz.error || !quiz.data || index === null) return <div className="alert">Could not build the quiz: {quiz.error}</div>;
 
   if (result) {
     return (
@@ -103,7 +115,14 @@ function RunQuiz({ sessionId, items }: { sessionId: string; items: SessionItem[]
         <div style={{ width: `${((index + (answered ? 1 : 0)) / questions.length) * 100}%` }} />
       </div>
 
-      <QuestionView key={q.id} question={q} answer={answers[q.id]} onAnswer={(a) => setAnswers((prev) => ({ ...prev, [q.id]: a }))} />
+      <QuestionView key={q.id} question={q} answer={answers[q.id]} onAnswer={(a) => {
+          setAnswers((prev) => ({ ...prev, [q.id]: a }));
+          saveQuizAnswer(sessionId, q.id, a).then(() => setAnswerSaveFailed(false), () => setAnswerSaveFailed(true));
+        }} />
+
+      {answerSaveFailed && !saveError && (
+        <p className="small center" style={{ color: 'var(--bad)' }}>Couldn't save this answer yet. It will be saved when you finish.</p>
+      )}
 
       {saveError && (
         <div className="alert">

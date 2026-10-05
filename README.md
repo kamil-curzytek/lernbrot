@@ -1,4 +1,6 @@
-# Germanizer: practical German, ten words a day
+# Lernbrot: your daily bread of German
+
+Practical German, ten words a day.
 
 MVP of a German tutor (CEFR A1 → B2). It proves one loop:
 
@@ -8,7 +10,7 @@ MVP of a German tutor (CEFR A1 → B2). It proves one loop:
 
 ## Status at a glance
 
-### Implemented and tested (57 automated tests, `npm test`)
+### Implemented and tested (74 automated tests, `npm test`)
 
 | Area | Where | Tested how |
 |---|---|---|
@@ -78,6 +80,10 @@ The full definition-of-done loop runs as one integration test (`tests/db.test.ts
    1. `supabase/migrations/20261001000001_schema.sql`
    2. `supabase/migrations/20261001000002_functions.sql`
    3. `supabase/migrations/20261001000003_daily_cron.sql` (enables `pg_cron` and schedules the job. If the extension can't be created from SQL, enable **pg_cron** under Database → Extensions first, then re-run.)
+   4. `supabase/migrations/20261005000004_resume_and_target.sql` (resume where you left off + 5–50 words per day)
+   5. `supabase/migrations/20261005000005_adaptive_new_words.sql` (fewer new words when reviews pile up)
+
+   For a brand-new project you can instead paste the single combined file `supabase/setup.sql` (all migrations + content).
 
    Or with the Supabase CLI: `supabase link --project-ref <ref>` then `supabase db push`.
 3. **Load content:** run `supabase/seed/content.sql` in the SQL Editor (idempotent, safe to re-run).
@@ -100,7 +106,7 @@ Both are public by design. RLS protects every row. **Never put the `service_role
 ```bash
 npm install
 npm run dev          # http://localhost:5173 (shows a setup screen until .env.local is set)
-npm test             # 57 tests: unit + content + database integration (PGlite, no Docker)
+npm test             # 74 tests: unit, content, database integration and a 60-day simulation: unit + content + database integration (PGlite, no Docker)
 npm run typecheck
 npm run seed:build   # regenerate supabase/seed/content.sql after editing content/*.json
 ```
@@ -117,12 +123,12 @@ The database tests (`tests/helpers/db.ts`) run the real migrations and seed on P
 
 | Table | Purpose | Client access |
 |---|---|---|
-| `profiles` | Level, daily target (default 10), timezone, `onboarded_at` | Read own. Update own settings columns only |
+| `profiles` | Level, daily target (5–50 in steps of 5, default 10), timezone, `onboarded_at` | Read own. Update own settings columns only |
 | `vocabulary_words` | Shared vocabulary (stable explicit ids) | Read (signed in) |
 | `grammar_topics` | Lessons (`content` jsonb, null = outline only) | Read (signed in) |
 | `vocabulary_grammar_links` | Word ↔ grammar (e.g. helfen → Dative) | Read (signed in) |
 | `vocabulary_progress` | One row per user + word: status, streak, counts, difficulty, `next_review_at` | Read own. Written only by `submit_quiz` |
-| `daily_sessions` | One per user + **local date** (`unique (user_id, session_date)`) | Read own. Created only by the session functions |
+| `daily_sessions` | One per user + **local date** (`unique (user_id, session_date)`). Also stores where you are: `study_position` (cards gone through) and `quiz_draft` (answers given so far) | Read own. Created only by the session functions |
 | `daily_session_words` | The words in each session (`kind` new/review, order) | Read own |
 | `quiz_attempts` | Score, duration. `unique (daily_session_id)` | Read own |
 | `quiz_answers` | Every answer: type, given, expected, correct | Read own |
@@ -139,7 +145,15 @@ Fields beyond the brief and why: `profiles.onboarded_at` (the job skips users wh
 
 ## Daily session algorithm (`create_daily_session_for`)
 
-Target `N` = `profiles.daily_word_target`. Keep at least `ceil(0.2·N)` new words (2 of 10) while new words remain.
+Target `N` = `profiles.daily_word_target`. The minimum number of new words depends on the review backlog (`D` = words due by the end of today):
+
+| Backlog | Minimum new words | At N = 10 |
+|---|---|---|
+| `D ≤ N` (on track) | `ceil(0.2·N)` | 8 review + 2 new |
+| `N < D < 2N` (busy) | `ceil(0.1·N)` | 9 review + 1 new |
+| `D ≥ 2N` (catch-up day) | 0 | 10 review |
+
+A 60-day simulation (`tests/simulation.test.ts`) showed that a fixed minimum of 2 new words a day lets the backlog grow without limit (86 overdue words after 60 days). With the adaptive rule it stays between roughly 8 and 21.
 
 1. **Already have a session for (user, local date)?** Return it (idempotent. The unique constraint also covers concurrent calls).
 2. **Due reviews:** `next_review_at` before the end of the learner's local day. Words answered wrong more often than right come first, then the most overdue. Capped at `N − min_new`.
@@ -216,10 +230,10 @@ Edit `content/grammar.json`. A full lesson has `what`, `rule`, `examples`, `mist
 
 - **Not yet run end-to-end against a hosted Supabase project.** The SQL is tested on real Postgres with a Supabase auth stub. Hosted-only behaviour (pg_cron scheduling, Auth email flows, PostgREST) is untested. The React screens beyond the setup screen have been type-checked and built but not used against live data.
 - **Notifications are not implemented.** Possible later: pg_net from the job to an Edge Function that sends email or push.
-- The quiz is saved when you finish it. Leaving midway discards the answers, and the same quiz is regenerated next time.
+- Your place is saved after every study card and every quiz answer (`save_session_progress`), so leaving and coming back, on any device, resumes where you were. Saved answers can't be changed. Quiz duration counts from the first answer, including any break.
 - One scored quiz per day. There is no extra practice mode yet.
 - Spaced-repetition results are computed in the browser and checked by `submit_quiz` (bounds, statuses, words in the session). A user could only change their own schedule.
-- Changing the level or daily target applies from the next session. The timezone is set at onboarding and can be updated in Progress.
+- Words per day (5–50) can be changed from the home screen or Progress. If today's lesson hasn't been started it's rebuilt immediately, otherwise the change applies from the next day (`update_daily_target`). Changing the level applies from the next session. The timezone is set at onboarding and can be updated in Progress.
 - Distractor "different topic" and synonym lists are heuristics. The shown translation is what guarantees context questions have one answer.
 - The seed has 266 words (143 A1 · 86 A2 · 25 B1 · 12 B2), slightly above the 150–250 guideline.
 

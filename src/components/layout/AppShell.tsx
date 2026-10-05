@@ -37,7 +37,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="topbar">
         <div className="topbar-inner">
           <NavLink to="/" className="brand">
-            German<span>izer</span>
+            Lern<span>brot</span>
           </NavLink>
           <nav className="nav" aria-label="Main">
             {NAV.map((n) => (

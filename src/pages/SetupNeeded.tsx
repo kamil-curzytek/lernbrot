@@ -3,7 +3,7 @@ export default function SetupNeeded() {
     <div className="main narrow stack">
       <h1>Connect Supabase</h1>
       <p>
-        Germanizer stores everything (your account, progress and review schedule) in Supabase. This build
+        Lernbrot stores everything (your account, progress and review schedule) in Supabase. This build
         has no Supabase project configured, so it cannot run yet.
       </p>
       <div className="card stack">
