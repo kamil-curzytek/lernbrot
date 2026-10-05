@@ -115,7 +115,9 @@ The database tests (`tests/helpers/db.ts`) run the real migrations and seed on P
 
 ## Deployment
 
-`npm run build` produces a static site in `dist/` (relative paths + hash routing, so it works on any static host with no rewrite rules). Deploy to Netlify, Vercel, Cloudflare Pages or GitHub Pages, with the two `VITE_` variables set at build time. Then add the deployed URL to Supabase Auth's Site URL and redirect URLs.
+**Live on GitHub Pages:** https://kamil-curzytek.github.io/lernbrot/. `.github/workflows/deploy.yml` runs the tests, builds and publishes on every push to `main`. The public Supabase URL and anon key it builds with are in `.env.production`. One-time setup: repo Settings → Pages → Source: **GitHub Actions**, and add the Pages address to Supabase Auth's Site URL and Redirect URLs.
+
+Elsewhere: `npm run build` produces a static site in `dist/` (relative paths + hash routing, so it works on any static host with no rewrite rules). Deploy to Netlify, Vercel, Cloudflare Pages or GitHub Pages, with the two `VITE_` variables set at build time. Then add the deployed URL to Supabase Auth's Site URL and redirect URLs.
 
 ---
 
