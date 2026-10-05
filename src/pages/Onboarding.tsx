@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SignOutButton } from '../components/layout/AppShell';
+import { supabase } from '../lib/supabase/client';
 import { browserTimeZone } from '../lib/time';
 import { completeOnboarding } from '../services/profileService';
 import type { CefrLevel, Profile } from '../types';
@@ -40,7 +42,11 @@ export default function Onboarding({ userId, onDone }: { userId: string; onDone:
     <div className="main narrow">
       <div className="stack" style={{ marginTop: '6vh' }}>
         <div>
-          <p className="muted small">Step {step} of 2</p>
+          <div className="row">
+            <p className="muted small" style={{ margin: 0 }}>Step {step} of 2</p>
+            <span className="spacer" />
+            <SignOutButton onSignOut={async () => { await supabase!.auth.signOut(); }} />
+          </div>
           <h1>Learn German, one useful step at a time.</h1>
         </div>
 
