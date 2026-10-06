@@ -19,18 +19,23 @@ export interface QuizItem {
 
 /**
  * Retrieval level a word is ready for:
- * 1 new or just missed · 2 one correct · 3 two-three in a row · 4 four or more in a row.
+ * 1 new or just missed (recognition, multiple choice) · 3 one to three in a row (typed recall)
+ * · 4 four or more in a row (typed recall, plus article/plural).
+ * From the second success on a word must be recalled, not recognised: recognising it among options is
+ * weaker evidence (and can be a guess), so only recall moves it on at full speed (see spacedRepetition).
  */
 export function wordLevel(progress: QuizItem['progress']): QuestionLevel {
   if (!progress || progress.times_seen === 0 || progress.streak <= 0) return 1;
-  if (progress.streak === 1) return 2;
   if (progress.streak <= 3) return 3;
   return 4;
 }
 
-/** Types allowed for a word: its level, one easier and one harder. */
+const isTyped = (t: QuestionType) => t !== 'de_en' && t !== 'en_de' && t !== 'context' && t !== 'article';
+
+/** Types allowed for a word. Level 1: multiple choice only. Level 3+: typed recall (article joins at level 4). */
 export function allowedTypes(level: QuestionLevel): QuestionType[] {
-  return QUESTION_TYPES.filter((t) => Math.abs(QUESTION_LEVEL[t] - level) <= 1);
+  if (level <= 2) return QUESTION_TYPES.filter((t) => QUESTION_LEVEL[t] <= 2);
+  return QUESTION_TYPES.filter((t) => QUESTION_LEVEL[t] >= 3 && QUESTION_LEVEL[t] <= level && (level === 4 || isTyped(t)));
 }
 
 function pickQuestion(
@@ -46,6 +51,8 @@ function pickQuestion(
       .filter((q): q is QuizQuestion => q !== null);
 
   let candidates = build(allowedTypes(level));
+  // No clean question of the right kind (e.g. an ambiguous gloss): stay with recall if possible.
+  if (candidates.length === 0 && level >= 3) candidates = build(QUESTION_TYPES.filter(isTyped));
   if (candidates.length === 0) candidates = build(QUESTION_TYPES);
   if (candidates.length === 0) {
     throw new Error(`no valid question for word ${item.word.id} (${item.word.german})`);

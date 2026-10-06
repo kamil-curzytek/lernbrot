@@ -1,5 +1,5 @@
 {
-  "_format": "id: stable. order: planned order within the level. lesson: null = outline only (B1/B2 in the MVP). Lesson sections: what, rule, examples, mistake, everyday, remember.",
+  "_format": "id: stable. order: planned order within the level. lesson: null = outline only. Lesson sections: what, rule, examples, mistake, everyday, remember.",
   "topics": [
     {"id": 101, "slug": "sein-haben", "title": "sein & haben", "lvl": "A1", "order": 1,
      "summary": "The two verbs you use in almost every sentence.",
@@ -283,20 +283,146 @@
        "remember": "Modal → no zu. Other verbs → zu + infinitive at the end."
      }},
 
-    {"id": 301, "slug": "genitive", "title": "Genitive", "lvl": "B1", "order": 1, "summary": "des/der, wegen, während, trotz. Mostly in written German."},
-    {"id": 302, "slug": "relative-clauses", "title": "Relative clauses", "lvl": "B1", "order": 2, "summary": "der Mann, der …; die Frau, die …; das Buch, das …"},
-    {"id": 303, "slug": "passive-present", "title": "Passive voice (present & past)", "lvl": "B1", "order": 3, "summary": "werden + participle: Das Paket wird geliefert."},
-    {"id": 304, "slug": "konjunktiv-ii", "title": "Konjunktiv II: wishes & hypotheticals", "lvl": "B1", "order": 4, "summary": "Wenn ich Zeit hätte, würde ich …"},
-    {"id": 305, "slug": "purpose-clauses", "title": "damit & um … zu", "lvl": "B1", "order": 5, "summary": "Expressing purpose: so that / in order to."},
-    {"id": 306, "slug": "two-part-conjunctions", "title": "Two-part conjunctions", "lvl": "B1", "order": 6, "summary": "sowohl … als auch, entweder … oder, weder … noch, nicht nur … sondern auch."},
-    {"id": 307, "slug": "plusquamperfekt", "title": "Plusquamperfekt", "lvl": "B1", "order": 7, "summary": "hatte/war + participle: what had happened before."},
-    {"id": 308, "slug": "n-declension", "title": "n-declension", "lvl": "B1", "order": 8, "summary": "den Kollegen, dem Nachbarn: masculine nouns that add -n."},
+    {"id": 301, "slug": "genitive", "title": "Genitive", "lvl": "B1", "order": 1,
+     "summary": "des/der, wegen, während, trotz. Mostly in written German.",
+     "lesson": {
+       "what": "The genitive shows possession or belonging (whose?), like English 's or 'of'. You meet it mostly in written German, in official letters and after a few prepositions.",
+       "rule": "der/das words: des + noun + -(e)s → des Mannes, des Autos.\ndie words and plural: der → der Frau, der Kinder.\nein/mein: eines, meines (masc./neuter) · einer, meiner (fem.).\nPrepositions + genitive: wegen, trotz, während, statt (anstatt), innerhalb, außerhalb.",
+       "examples": [{"de": "Das ist das Auto meines Bruders.", "en": "That's my brother's car."}, {"de": "Die Miete der Wohnung ist zu hoch.", "en": "The rent for the flat is too high."}, {"de": "Wegen des Streiks fahren keine Züge.", "en": "Because of the strike no trains are running."}],
+       "mistake": {"wrong": "das Auto von mein Bruder", "right": "das Auto meines Bruders / das Auto von meinem Bruder", "why": "Either genitive (meines Bruders) or von + dative (von meinem Bruder). Both are correct; the genitive is more formal."},
+       "everyday": [{"de": "Das ist Annas Handy.", "en": "That's Anna's phone. (names: just add -s, no apostrophe)"}, {"de": "Wegen dem Wetter bleiben wir zu Hause.", "en": "Because of the weather we're staying in. (spoken: wegen + dative)"}],
+       "remember": "Speaking: von + dative is fine. Writing: des …-s / der. Names just take -s: Peters Auto."
+     }},
+    {"id": 302, "slug": "relative-clauses", "title": "Relative clauses", "lvl": "B1", "order": 2,
+     "summary": "der Mann, der …; die Frau, die …; das Buch, das …",
+     "lesson": {
+       "what": "A relative clause describes a noun more closely: the man WHO lives next door, the flat THAT I rent. In German it always has commas and the verb at the end.",
+       "rule": "Gender and number come from the noun: der Mann → der/den/dem, die Frau → die/der, das Kind → das/dem, plural → die/denen.\nCase comes from the role inside the relative clause: subject → der; object → den; dative (helfen, mit …) → dem.\nWhose: dessen (der/das words), deren (die words, plural).\nThe conjugated verb goes to the end: …, der neben mir wohnt.",
+       "examples": [{"de": "Das ist der Kollege, der mir immer hilft.", "en": "That's the colleague who always helps me."}, {"de": "Die Wohnung, die wir gesehen haben, ist zu teuer.", "en": "The flat we saw is too expensive."}, {"de": "Die Leute, mit denen ich arbeite, sind nett.", "en": "The people I work with are nice."}],
+       "mistake": {"wrong": "Das ist der Mann, den hilft mir.", "right": "Das ist der Mann, der mir hilft.", "why": "He is the one helping (subject) → der, and the verb goes to the end."},
+       "everyday": [{"de": "Das ist alles, was ich weiß.", "en": "That's all I know. (after alles, etwas, nichts: was)"}, {"de": "Die Stadt, in der ich wohne, ist klein.", "en": "The town I live in is small."}],
+       "remember": "Ask two questions: which noun? (gender) and what does it do in the clause? (case). Then send the verb to the end."
+     }},
+    {"id": 303, "slug": "passive-present", "title": "Passive voice (present & past)", "lvl": "B1", "order": 3,
+     "summary": "werden + participle: Das Paket wird geliefert.",
+     "lesson": {
+       "what": "The passive puts the action in the centre, not the person doing it: The parcel is delivered. You see it in letters from offices, instructions, news and signs.",
+       "rule": "Present: werden + participle at the end → Das Paket wird geliefert.\nPast: wurde + participle → Das Haus wurde 1990 gebaut.\nPerfekt: ist … worden (not geworden) → Der Brief ist geschickt worden.\nWho did it (if needed): von + dative → vom Vermieter.",
+       "examples": [{"de": "Die Briefe werden jeden Tag verschickt.", "en": "The letters are sent every day."}, {"de": "Hier wird Deutsch gesprochen.", "en": "German is spoken here."}, {"de": "Mein Fahrrad wurde gestohlen.", "en": "My bike was stolen."}],
+       "mistake": {"wrong": "Der Termin ist abgesagt geworden.", "right": "Der Termin ist abgesagt worden.", "why": "In the passive Perfekt the participle of werden is worden."},
+       "everyday": [{"de": "Sie werden gleich aufgerufen.", "en": "You'll be called in a moment."}, {"de": "Das wird morgen erledigt.", "en": "That will be done tomorrow."}],
+       "remember": "Active: someone DOES it. Passive: it IS DONE (werden + participle)."
+     }},
+    {"id": 304, "slug": "konjunktiv-ii", "title": "Konjunktiv II: wishes & hypotheticals", "lvl": "B1", "order": 4,
+     "summary": "Wenn ich Zeit hätte, würde ich …",
+     "lesson": {
+       "what": "Konjunktiv II expresses what is not real: wishes, hypotheticals, advice and polite requests. Wenn ich Zeit hätte, … = If I had time …",
+       "rule": "sein → wäre, haben → hätte, können → könnte, müssen → müsste, sollen → sollte, dürfen → dürfte.\nAll other verbs (spoken): würde + infinitive → Ich würde kommen.\nPast hypothetical: hätte/wäre + participle → Ich wäre gekommen.\nAdvice: Du solltest … · Suggestion: Wir könnten …",
+       "examples": [{"de": "Wenn ich Zeit hätte, würde ich mitkommen.", "en": "If I had time, I'd come along."}, {"de": "An deiner Stelle würde ich zum Arzt gehen.", "en": "In your place I'd go to the doctor."}, {"de": "Hätte ich das nur gewusst!", "en": "If only I had known that!"}],
+       "mistake": {"wrong": "Wenn ich Zeit würde haben, …", "right": "Wenn ich Zeit hätte, …", "why": "haben, sein and the modal verbs have their own forms: hätte, wäre, könnte. Use würde for the other verbs."},
+       "everyday": [{"de": "Das wäre super!", "en": "That would be great!"}, {"de": "Du solltest mehr schlafen.", "en": "You should sleep more."}],
+       "remember": "hätte, wäre, könnte, sollte by themselves. Everything else: würde + infinitive."
+     }},
+    {"id": 305, "slug": "purpose-clauses", "title": "damit & um … zu", "lvl": "B1", "order": 5,
+     "summary": "Expressing purpose: so that / in order to.",
+     "lesson": {
+       "what": "To say why or for what purpose you do something: in order to / so that. German has two options, and the choice depends on the subject.",
+       "rule": "Same subject: um … zu + infinitive at the end → Ich lerne, um die Prüfung zu bestehen.\nDifferent subjects: damit + verb at the end → Ich erkläre es, damit du es verstehst.\nSeparable verbs: um … anzumelden.\nQuestion: Wozu? (What for?)",
+       "examples": [{"de": "Ich gehe zum Bürgeramt, um mich anzumelden.", "en": "I'm going to the citizens' office to register."}, {"de": "Ich spreche langsam, damit du mich verstehst.", "en": "I'm speaking slowly so that you understand me."}, {"de": "Wir fahren früh los, um den Zug nicht zu verpassen.", "en": "We're leaving early so as not to miss the train."}],
+       "mistake": {"wrong": "Ich lerne Deutsch, für in Deutschland zu arbeiten.", "right": "Ich lerne Deutsch, um in Deutschland zu arbeiten.", "why": "\"in order to\" is um … zu, not für."},
+       "everyday": [{"de": "Wozu brauchst du das?", "en": "What do you need that for?"}, {"de": "Ich schreibe es auf, damit ich es nicht vergesse.", "en": "I'm writing it down so I don't forget it."}],
+       "remember": "One person → um … zu. Two different people → damit."
+     }},
+    {"id": 306, "slug": "two-part-conjunctions", "title": "Two-part conjunctions", "lvl": "B1", "order": 6,
+     "summary": "sowohl … als auch, entweder … oder, weder … noch, nicht nur … sondern auch.",
+     "lesson": {
+       "what": "Some connectors come in pairs and link two things: both … and, either … or, neither … nor. They make your speaking and writing more precise.",
+       "rule": "sowohl … als auch = both … and\nentweder … oder = either … or\nweder … noch = neither … nor (already negative: no nicht/kein)\nnicht nur … sondern auch = not only … but also\nzwar … aber = admittedly … but\nje + comparative …, desto/umso + comparative = the more …, the more",
+       "examples": [{"de": "Ich spreche sowohl Polnisch als auch Deutsch.", "en": "I speak both Polish and German."}, {"de": "Wir fahren entweder mit dem Zug oder mit dem Auto.", "en": "We're going either by train or by car."}, {"de": "Je mehr ich übe, desto besser spreche ich.", "en": "The more I practise, the better I speak."}],
+       "mistake": {"wrong": "Ich habe weder Zeit noch keine Lust.", "right": "Ich habe weder Zeit noch Lust.", "why": "weder … noch is already negative; don't add kein or nicht."},
+       "everyday": [{"de": "Die Wohnung ist zwar klein, aber günstig.", "en": "The flat is small, admittedly, but cheap."}, {"de": "Entweder du kommst mit, oder du bleibst hier.", "en": "Either you come along or you stay here."}],
+       "remember": "Learn them as pairs: sowohl–als auch, entweder–oder, weder–noch, nicht nur–sondern auch, zwar–aber, je–desto."
+     }},
+    {"id": 307, "slug": "plusquamperfekt", "title": "Plusquamperfekt", "lvl": "B1", "order": 7,
+     "summary": "hatte/war + participle: what had happened before.",
+     "lesson": {
+       "what": "The Plusquamperfekt describes what had already happened before another past event. You need it when telling stories, often with nachdem (after).",
+       "rule": "hatte or war (the same choice as in the Perfekt) + participle at the end.\nnachdem + Plusquamperfekt, main clause in Präteritum or Perfekt: Nachdem wir gegessen hatten, gingen wir spazieren.",
+       "examples": [{"de": "Als ich ankam, war der Zug schon abgefahren.", "en": "When I arrived, the train had already left."}, {"de": "Ich hatte den Schlüssel vergessen.", "en": "I had forgotten the key."}, {"de": "Nachdem er umgezogen war, suchte er Arbeit.", "en": "After he had moved, he looked for work."}],
+       "mistake": {"wrong": "Nachdem ich gegessen habe, ging ich los.", "right": "Nachdem ich gegessen hatte, ging ich los.", "why": "The earlier action needs the Plusquamperfekt (hatte gegessen) when the later one is in the past."},
+       "everyday": [{"de": "Ich hatte keine Ahnung!", "en": "I had no idea!"}, {"de": "Wir waren noch nie in Wien gewesen.", "en": "We had never been to Vienna."}],
+       "remember": "Perfekt one step further back: habe → hatte, bin → war."
+     }},
+    {"id": 308, "slug": "n-declension", "title": "n-declension", "lvl": "B1", "order": 8,
+     "summary": "den Kollegen, dem Nachbarn: masculine nouns that add -n.",
+     "lesson": {
+       "what": "A small group of masculine nouns adds -n or -en in every case except the nominative singular: der Kollege, but den/dem/des Kollegen. They are common in everyday and work life.",
+       "rule": "Which nouns: masculine people and animals ending in -e (der Kollege, der Kunde, der Junge, der Löwe), foreign words in -ent, -ant, -ist, -at (der Student, der Praktikant, der Polizist, der Kandidat), and Herr, Mensch, Nachbar, Bauer.\nNominative singular: no ending. Everything else: -(e)n.",
+       "examples": [{"de": "Ich frage meinen Kollegen.", "en": "I'm asking my colleague."}, {"de": "Wir helfen dem Nachbarn.", "en": "We're helping the neighbour."}, {"de": "Ich habe mit Herrn Müller gesprochen.", "en": "I spoke to Mr Müller."}],
+       "mistake": {"wrong": "Ich rufe den Kunde an.", "right": "Ich rufe den Kunden an.", "why": "Kunde is an n-noun: accusative den Kunden."},
+       "everyday": [{"de": "Sehr geehrter Herr Schmidt, …", "en": "Dear Mr Schmidt, … (nominative: Herr)"}, {"de": "Ein Brief für Herrn Schmidt.", "en": "A letter for Mr Schmidt. (für + accusative: Herrn)"}],
+       "remember": "Herr in a greeting, Herrn everywhere else: an Herrn, für Herrn, mit Herrn Schmidt."
+     }},
 
-    {"id": 401, "slug": "passive-alternatives", "title": "Passive with modals & alternatives", "lvl": "B2", "order": 1, "summary": "muss erledigt werden; lässt sich machen; ist zu machen."},
-    {"id": 402, "slug": "konjunktiv-i", "title": "Konjunktiv I: reported speech", "lvl": "B2", "order": 2, "summary": "Er sagt, er habe keine Zeit. The language of news reports."},
-    {"id": 403, "slug": "nominalisation", "title": "Nominalisation", "lvl": "B2", "order": 3, "summary": "Turning verbs into nouns for formal writing: die Umsetzung des Plans."},
-    {"id": 404, "slug": "participle-attributes", "title": "Participles as adjectives", "lvl": "B2", "order": 4, "summary": "die steigenden Mieten, das gestern gekaufte Buch."},
-    {"id": 405, "slug": "advanced-connectors", "title": "Advanced connectors", "lvl": "B2", "order": 5, "summary": "indem, sodass, je … desto, falls, sofern."},
-    {"id": 406, "slug": "modal-particles", "title": "Modal particles", "lvl": "B2", "order": 6, "summary": "doch, mal, ja, eben, halt: sounding natural in conversation."}
+    {"id": 401, "slug": "passive-alternatives", "title": "Passive with modals & alternatives", "lvl": "B2", "order": 1,
+     "summary": "muss erledigt werden; lässt sich machen; ist zu machen.",
+     "lesson": {
+       "what": "Formal German has several ways to say that something can or must be done. You'll meet them in contracts, official letters and instructions.",
+       "rule": "Passive with a modal: Das muss erledigt werden (participle + werden at the end).\nsich lassen + infinitive = can be done: Das lässt sich lösen.\nsein + zu + infinitive = can / must be done: Der Antrag ist bis Freitag einzureichen.\n-bar adjectives = can be done: machbar, lösbar, erreichbar.",
+       "examples": [{"de": "Das Formular muss bis Montag eingereicht werden.", "en": "The form must be submitted by Monday."}, {"de": "Das Problem lässt sich leicht lösen.", "en": "The problem can easily be solved."}, {"de": "Die Rechnung ist innerhalb von 14 Tagen zu bezahlen.", "en": "The bill is to be paid within 14 days."}],
+       "mistake": {"wrong": "Der Vertrag muss unterschrieben wird.", "right": "Der Vertrag muss unterschrieben werden.", "why": "After a modal verb the infinitive werden goes to the end."},
+       "everyday": [{"de": "Das lässt sich machen.", "en": "That can be done."}, {"de": "Ich bin telefonisch erreichbar.", "en": "I can be reached by phone."}],
+       "remember": "ist zu + infinitive in a letter usually means MUST: Die Gebühr ist zu bezahlen = you have to pay."
+     }},
+    {"id": 402, "slug": "konjunktiv-i", "title": "Konjunktiv I: reported speech", "lvl": "B2", "order": 2,
+     "summary": "Er sagt, er habe keine Zeit. The language of news reports.",
+     "lesson": {
+       "what": "Konjunktiv I reports what someone else said, without the speaker vouching for it. It's the language of news and formal reports: Der Minister sagt, er habe keine Zeit.",
+       "rule": "Form: stem + -e (3rd person): er habe, er komme, er könne, er werde, er wisse.\nsein: er sei, sie seien.\nIf the form looks like the indicative (wir haben, sie kommen), use Konjunktiv II instead: sie hätten, sie kämen.\nPast: er habe … gemacht / er sei … gegangen.",
+       "examples": [{"de": "Der Sprecher sagte, das Problem werde bald gelöst.", "en": "The spokesman said the problem would soon be solved."}, {"de": "Sie erklärte, sie sei krank gewesen.", "en": "She explained that she had been ill."}, {"de": "Laut Polizei sei der Fahrer zu schnell gefahren.", "en": "According to the police, the driver had been driving too fast."}],
+       "mistake": {"wrong": "Sie sagen, sie haben keine Zeit. (in a news text)", "right": "Sie sagen, sie hätten keine Zeit.", "why": "sie haben looks like the indicative, so reported speech switches to Konjunktiv II."},
+       "everyday": [{"de": "Er sagt, er kommt später.", "en": "He says he's coming later. (in conversation the indicative is normal)"}, {"de": "Es heißt, die Preise steigen weiter.", "en": "They say prices keep rising."}],
+       "remember": "You mainly need to recognise it (news, reports). In conversation, plain indicative or würde is fine."
+     }},
+    {"id": 403, "slug": "nominalisation", "title": "Nominalisation", "lvl": "B2", "order": 3,
+     "summary": "Turning verbs into nouns for formal writing: die Umsetzung des Plans.",
+     "lesson": {
+       "what": "Formal written German likes nouns where speech uses verbs: Wir setzen den Plan um → die Umsetzung des Plans. Recognising this style makes official texts much easier to read.",
+       "rule": "Common patterns: verb stem + -ung (umsetzen → die Umsetzung, entscheiden → die Entscheidung), infinitive as a noun (das Rauchen, das Parken), and irregular nouns (ankommen → die Ankunft, steigen → der Anstieg).\nThe object of the verb becomes a genitive: den Antrag prüfen → die Prüfung des Antrags.\nThe subject becomes a genitive or durch + accusative: die Prüfung durch das Amt.",
+       "examples": [{"de": "Nach der Unterzeichnung des Vertrags beginnt die Arbeit.", "en": "Once the contract is signed, the work begins."}, {"de": "Wegen der Sperrung der Straße fährt der Bus nicht.", "en": "Because the road is closed, the bus isn't running."}, {"de": "Das Parken ist hier verboten.", "en": "Parking is prohibited here."}],
+       "mistake": {"wrong": "die Umsetzung von dem Plan (in a formal text)", "right": "die Umsetzung des Plans", "why": "Formal style uses the genitive; von + dative sounds spoken."},
+       "everyday": [{"de": "Bei Fragen rufen Sie uns an.", "en": "If you have questions, call us."}, {"de": "Vor der Abfahrt bitte einsteigen.", "en": "Please board before departure."}],
+       "remember": "Reading a heavy sentence? Turn the -ung noun back into a verb: die Beantragung des Visums = someone applies for the visa."
+     }},
+    {"id": 404, "slug": "participle-attributes", "title": "Participles as adjectives", "lvl": "B2", "order": 4,
+     "summary": "die steigenden Mieten, das gestern gekaufte Buch.",
+     "lesson": {
+       "what": "Participles can work like adjectives in front of a noun: die steigenden Mieten (rents that are rising), das gekaufte Buch (the book that was bought). Formal texts even put whole phrases there: das gestern gekaufte Buch.",
+       "rule": "Partizip I = verb + -d (steigend, schlafend): something happening now, active.\nPartizip II (gekauft, ausgefüllt): finished or passive.\nBoth take normal adjective endings: die steigenden Mieten, ein schlafendes Kind, das ausgefüllte Formular.\nExtra information goes in front of the participle: die seit Jahren steigenden Mieten.",
+       "examples": [{"de": "Die steigenden Mieten sind ein großes Problem.", "en": "Rising rents are a big problem."}, {"de": "Schicken Sie das ausgefüllte Formular zurück.", "en": "Send back the completed form."}, {"de": "Die entstandenen Kosten werden erstattet.", "en": "The costs incurred will be reimbursed."}],
+       "mistake": {"wrong": "die gestiegen Preise", "right": "die gestiegenen Preise", "why": "A participle in front of a noun needs an adjective ending."},
+       "everyday": [{"de": "fließendes Wasser", "en": "running water"}, {"de": "eine möblierte Wohnung", "en": "a furnished flat"}],
+       "remember": "-end = it is doing it (active, now). ge-…-t/-en = it has been done (passive, finished)."
+     }},
+    {"id": 405, "slug": "advanced-connectors", "title": "Advanced connectors", "lvl": "B2", "order": 5,
+     "summary": "indem, sodass, je … desto, falls, sofern.",
+     "lesson": {
+       "what": "B2 texts link ideas precisely: by doing (indem), with the result that (sodass), provided that (sofern), although (obwohl) and nevertheless (trotzdem). Two groups behave differently in word order.",
+       "rule": "Subordinating (verb to the end): indem (by -ing), sodass (so that, result), falls / sofern (if / provided), obwohl (although), während (while / whereas), je … desto.\nAdverbs in position 1 (verb comes right after): deshalb, deswegen, trotzdem, außerdem, dann, sonst, daher.\nSo: obwohl es regnet … but: Es regnet, trotzdem gehen wir.",
+       "examples": [{"de": "Man spart Energie, indem man die Heizung herunterdreht.", "en": "You save energy by turning down the heating."}, {"de": "Der Zug hatte Verspätung, sodass wir den Anschluss verpassten.", "en": "The train was late, so we missed the connection."}, {"de": "Er hat wenig Zeit, trotzdem hilft er uns.", "en": "He has little time; nevertheless he helps us."}],
+       "mistake": {"wrong": "Es regnet, trotzdem wir gehen spazieren.", "right": "Es regnet, trotzdem gehen wir spazieren.", "why": "trotzdem takes position 1, so the verb comes next, then the subject."},
+       "everyday": [{"de": "Falls du Fragen hast, ruf mich an.", "en": "If you have any questions, call me."}, {"de": "Beeil dich, sonst verpassen wir den Zug.", "en": "Hurry up, otherwise we'll miss the train."}],
+       "remember": "obwohl / weil / indem … verb at the END. trotzdem / deshalb / sonst + VERB right after."
+     }},
+    {"id": 406, "slug": "modal-particles", "title": "Modal particles", "lvl": "B2", "order": 6,
+     "summary": "doch, mal, ja, eben, halt: sounding natural in conversation.",
+     "lesson": {
+       "what": "Small words like doch, mal, ja, eben, halt and denn don't change the facts but the tone: friendlier, more encouraging, more natural. Native speakers use them constantly; they're mostly a matter of listening and imitating.",
+       "rule": "doch: encouragement (Komm doch mit!), contradiction (Das ist doch falsch!), and 'yes' to a negative question.\nmal: softens requests (Kannst du mal kommen?).\nja: 'as we both know' or surprise (Das ist ja toll!).\neben / halt: 'that's just how it is' (Dann nehmen wir halt den Bus).\ndenn: makes questions friendlier (Wie geht's denn?).",
+       "examples": [{"de": "Komm doch mit, das wird lustig!", "en": "Do come along, it'll be fun!"}, {"de": "Kannst du mir mal helfen?", "en": "Can you give me a hand?"}, {"de": "Was ist denn los?", "en": "What's the matter?"}],
+       "mistake": {"wrong": "Du kommst nicht? – Ja, ich komme.", "right": "Du kommst nicht? – Doch, ich komme.", "why": "To say 'yes' to a negative question, German uses doch."},
+       "everyday": [{"de": "Das ist ja interessant!", "en": "Oh, that's interesting!"}, {"de": "So ist das eben.", "en": "That's just the way it is."}],
+       "remember": "Start with three: mal for requests, doch for encouragement, denn in questions."
+     }}
   ]
 }

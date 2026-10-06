@@ -60,10 +60,19 @@ describe('quiz generation', () => {
     expect(generateQuiz(firstDay, words, 'abc')).toEqual(generateQuiz(firstDay, words, 'abc'));
   });
 
+  it('new or missed words get multiple choice; from the second success on, only typed recall', () => {
+    const fresh = generateQuiz(firstDay, words, 'fmt-a');
+    expect(fresh.every((q) => q.format === 'choice')).toBe(true);
+    const once = firstDay.map((i) => ({ word: i.word, progress: { streak: 1, times_seen: 1 } }));
+    const recall = generateQuiz(once, words, 'fmt-b');
+    expect(recall.every((q) => q.format === 'typed'), recall.map((q) => `${q.wordId}:${q.type}`).join(' ')).toBe(true);
+  });
+
   it('maps progress to levels', () => {
     expect(wordLevel(null)).toBe(1);
     expect(wordLevel({ streak: 0, times_seen: 3 })).toBe(1);
-    expect(wordLevel({ streak: 1, times_seen: 1 })).toBe(2);
+    expect(wordLevel({ streak: 1, times_seen: 1 })).toBe(3); // recall required from the second success
+    expect(wordLevel({ streak: 2, times_seen: 2 })).toBe(3);
     expect(wordLevel({ streak: 3, times_seen: 3 })).toBe(3);
     expect(wordLevel({ streak: 7, times_seen: 7 })).toBe(4);
   });

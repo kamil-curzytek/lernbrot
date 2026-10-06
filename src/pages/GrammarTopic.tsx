@@ -1,6 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
+import { SkillPractice } from '../components/grammar/SkillPractice';
 import { useAsync } from '../hooks/useAsync';
+import { loadGrammarSkills } from '../lib/grammar';
 import { displayGerman } from '../lib/quiz';
+import { getGrammarProgress } from '../services/grammarPracticeService';
 import { getTopic, wordsForTopic } from '../services/grammarService';
 import { getWordsByIds } from '../services/vocabularyService';
 import type { GrammarExample } from '../types';
@@ -24,15 +27,20 @@ export default function GrammarTopic() {
     const topic = await getTopic(slug);
     if (!topic) return null;
     const ids = await wordsForTopic(topic.id);
-    const words = [...(await getWordsByIds(ids)).values()];
-    return { topic, words };
+    const [words, allSkills, progress] = await Promise.all([
+      getWordsByIds(ids).then((m) => [...m.values()]),
+      loadGrammarSkills(),
+      getGrammarProgress(),
+    ]);
+    const skills = [...allSkills.values()].filter((s) => s.topic === topic.slug);
+    return { topic, words, skills, allSkills, progress };
   }, [slug]);
 
   if (state.loading) return <div className="loading">Loading lesson…</div>;
   if (state.error) return <div className="alert">{state.error}</div>;
   if (!state.data) return <div className="notice">Lesson not found. <Link to="/grammar">All grammar</Link></div>;
 
-  const { topic, words } = state.data;
+  const { topic, words, skills, allSkills, progress } = state.data;
   const c = topic.content;
 
   return (
@@ -77,6 +85,8 @@ export default function GrammarTopic() {
             </section>
           </>
         )}
+
+        {c && <SkillPractice skills={skills} progress={progress} allSkills={allSkills} />}
 
         {words.length > 0 && (
           <section className="lesson-section">

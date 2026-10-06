@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
+import type { GrammarExercise } from '../../lib/grammar';
 import { displayGerman } from '../../lib/quiz';
 import type { VocabularyWord } from '../../types';
+
+export interface GrammarResult {
+  score: number;
+  total: number;
+  wrong: GrammarExercise[];
+}
 
 interface Props {
   score: number;
@@ -8,9 +15,10 @@ interface Props {
   words: VocabularyWord[];
   incorrectWordIds: number[];
   dailyTarget: number;
+  grammar?: GrammarResult | null;
 }
 
-export function QuizResults({ score, total, words, incorrectWordIds, dailyTarget }: Props) {
+export function QuizResults({ score, total, words, incorrectWordIds, dailyTarget, grammar }: Props) {
   const wrong = words.filter((w) => incorrectWordIds.includes(w.id));
   const good = total - wrong.length;
 
@@ -43,6 +51,26 @@ export function QuizResults({ score, total, words, incorrectWordIds, dailyTarget
           <p className="muted" style={{ margin: 0 }}>A perfect round. These words will come back later, spaced out.</p>
         )}
       </div>
+
+      {grammar && grammar.total > 0 && (
+        <div className="card stack">
+          <strong>Grammar: {grammar.score} / {grammar.total}</strong>
+          {grammar.wrong.length > 0 ? (
+            <div>
+              <span className="muted small">Worth another look:</span>
+              <ul style={{ margin: '6px 0 0', paddingLeft: 20 }}>
+                {grammar.wrong.map((ex) => (
+                  <li key={ex.id}>
+                    <Link to={`/grammar/${ex.topic}`}>{ex.explanation}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p className="muted" style={{ margin: 0 }}>All rules right. They'll come back later, spaced out.</p>
+          )}
+        </div>
+      )}
 
       <p className="muted center">Come back tomorrow for your next {dailyTarget}.</p>
       <Link to="/" className="btn btn-primary btn-block">Back home</Link>

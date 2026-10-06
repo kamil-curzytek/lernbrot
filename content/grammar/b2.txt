@@ -1,0 +1,108 @@
+# B2 grammar skills. Format: see scripts/build-grammar.mjs. Append new exercises at the END of a skill.
+
+## 4011 | passive-alternatives | verb_form | passive with modal verbs: muss erledigt werden
+rule: Passive with a modal verb: modal verb (position 2) … participle + werden at the end: Der Antrag muss bis Freitag eingereicht werden.
+requires: 3031
+c | Das Formular muss bis Montag ___. | The form must be submitted by Monday. | eingereicht wird / *eingereicht werden / einreichen werden
+c | Die Wohnung kann ab Juni ___. | The flat can be rented from June. | *gemietet werden / mieten werden / gemietet wird
+c | Hier darf nicht ___. | Smoking is not allowed here. | geraucht wird / *geraucht werden / rauchen werden
+o | die Rechnung / muss / sofort / bezahlt werden | The bill must be paid immediately. | also: sofort / muss / die Rechnung / bezahlt werden
+o | das Problem / kann / schnell / gelöst werden | The problem can be solved quickly. | also: schnell / kann / das Problem / gelöst werden
+o | der Termin / musste / leider / verschoben werden | Unfortunately the appointment had to be postponed. | also: leider / musste / der Termin / verschoben werden
+c | Die Daten ___ gelöscht werden. | The data must be deleted. | *müssen / muss / werden
+c | Das Paket konnte nicht ___ werden. | The parcel couldn't be delivered. | zustellen / *zugestellt / zustellt
+t | Der Vertrag muss noch ___ werden. (unterschreiben) | The contract still has to be signed. | unterschrieben
+t | Die Heizung sollte bald ___ werden. (reparieren) | The heating should be repaired soon. | repariert
+
+## 4012 | passive-alternatives | verb_form | lässt sich, ist zu …, -bar: other ways to say "can be done"
+rule: Instead of "kann gemacht werden": lässt sich machen (Das lässt sich lösen), ist zu + infinitive (= can/must be: Der Antrag ist bis Freitag einzureichen), -bar (lösbar = can be solved).
+c | Das Problem ___ leicht lösen. | The problem can easily be solved. | wird sich / *lässt sich / ist sich
+c | Der Antrag ist bis Freitag ___. | The application must be submitted by Friday. | eingereicht / *einzureichen / einreichen | ist zu + infinitive; separable verbs: ein-zu-reichen.
+c | Diese Aufgabe ist nicht ___. | This task cannot be done. | machen / *zu machen / gemacht zu
+c | Das Fenster lässt sich nicht ___. | The window won't open. | geöffnet / *öffnen / zu öffnen
+c | Die Lösung ist ___. | The solution is feasible. | *machbar / machlich / gemachbar | -bar = can be done.
+c | Der Text ist kaum ___. | The text is hardly readable. | lesen / *lesbar / gelesen
+c | Die Hausordnung ist unbedingt ___. | The house rules must be followed. | eingehalten / *einzuhalten / einhalten
+c | Das lässt sich nicht ___. | That can't be changed. | geändert / *ändern / zu ändern
+c | Die Rechnung ist innerhalb von 14 Tagen ___. | The bill is to be paid within 14 days. | *zu bezahlen / bezahlt / bezahlen | Official letters: ist zu bezahlen.
+c | Der Fehler ist leicht ___. | The mistake is easy to fix. | zu beheben gewesen / *zu beheben / beheben
+
+## 4021 | konjunktiv-i | mood | reported speech: er habe, sei, komme
+ask: Reported speech in a news report or formal text: choose the reported-speech form.
+rule: Konjunktiv I (news, formal reports): stem + -e: er habe, er komme, er könne, er werde; sein → er sei. If it looks like the indicative (wir haben), use Konjunktiv II (wir hätten).
+c | Der Minister sagt, er ___ keine Zeit. | The minister says he has no time. | hat / *habe / hätte
+c | Sie erklärte, sie ___ krank. | She explained that she was ill. | ist / *sei / wäre
+c | Der Sprecher sagte, das Problem ___ bald gelöst. | The spokesman said the problem would soon be solved. | wird / *werde / würden
+c | Er behauptet, er ___ das nicht gewusst. | He claims he didn't know that. | hat / *habe / hatte
+c | Die Polizei teilte mit, der Fahrer ___ schwer verletzt. | The police said the driver was seriously injured. | *sei / ist / wäre
+c | Laut Bericht ___ die Firma 200 Mitarbeiter entlassen. | According to the report the company will lay off 200 staff. | wird / *werde / würde
+c | Sie sagen, sie ___ keine Erfahrung. | They say they have no experience. | haben / habe / *hätten | Konjunktiv I "sie haben" = indicative, so use Konjunktiv II: hätten.
+c | Der Arzt meint, ich ___ mich schonen. | The doctor thinks I should take it easy. | soll / *solle / sollen
+c | Sie fragte, ob er morgen ___. | She asked whether he was coming tomorrow. | kommt / *komme / kämen
+c | Er sagte, er ___ nicht kommen. | He said he couldn't come. | kann / *könne / konnte
+
+## 4031 | nominalisation | other | verb → noun for formal texts: die Umsetzung des Plans
+rule: Formal written German turns verbs into nouns: umsetzen → die Umsetzung, entscheiden → die Entscheidung, ankommen → die Ankunft, beantragen → die Beantragung. The object becomes a genitive: den Plan umsetzen → die Umsetzung des Plans.
+t | Wir setzen den Plan um. → Die ___ des Plans. (umsetzen) | We're implementing the plan. → The implementation of the plan. | Umsetzung
+t | Der Zug kommt an. → Die ___ des Zuges. (ankommen) | The train arrives. → The arrival of the train. | Ankunft
+t | Man entscheidet schnell. → Eine schnelle ___. (entscheiden) | A quick decision. | Entscheidung
+t | Die Preise steigen. → Der ___ der Preise. (steigen) | The rise in prices. | Anstieg
+t | Wir beantragen ein Visum. → Die ___ eines Visums. (beantragen) | Applying for a visa. | Beantragung
+c | Nach ___ des Vertrags beginnt die Arbeit. | After the contract is signed, work begins. | der Unterschreiben / *der Unterzeichnung / dem Unterschrift
+c | Die Reparatur ___ Heizung dauert zwei Tage. | Repairing the heating takes two days. | von der / *der / die
+t | Man verbessert die Qualität. → Die ___ der Qualität. (verbessern) | Improving the quality. | Verbesserung
+c | Wegen der ___ der Straße fährt der Bus nicht. | Because the road is closed, the bus isn't running. | Sperren / *Sperrung / Gesperrte
+t | Die Firma wächst. → Das ___ der Firma. (wachsen) | The company's growth. | Wachstum
+
+## 4041 | participle-attributes | adjective_ending | die steigenden Mieten, das gekaufte Buch
+rule: Partizip I (verb + -d: steigend) = something happening now; Partizip II (gekauft) = done/finished. Both take adjective endings: die steigenden Mieten, das gestern gekaufte Buch.
+c | Die ___ Mieten sind ein Problem. | Rising rents are a problem. | gestiegen / *steigenden / steigend
+c | Das gestern ___ Buch ist spannend. | The book bought yesterday is exciting. | kaufende / *gekaufte / gekauft
+c | Ein ___ Kind braucht Ruhe. | A sleeping child needs quiet. | geschlafenes / *schlafendes / schlafende
+c | Die gestern ___ Fenster sind schon wieder schmutzig. | The windows cleaned yesterday are already dirty again. | putzenden / *geputzten / geputzt
+c | Wir suchen eine ___ Wohnung. | We're looking for a furnished flat. | möblierende / *möblierte / möbliert
+c | Der ___ Zug fährt nach München. | The arriving train is going to Munich. | angekommene / *ankommende / ankommend
+c | Die ___ Kosten werden erstattet. | The costs incurred will be reimbursed. | entstehenden / *entstandenen / entstanden
+c | Das ___ Formular schicken Sie bitte zurück. | Please send back the completed form. | ausfüllende / *ausgefüllte / ausgefüllt
+c | Bei ___ Regen fällt das Fest aus. | If it keeps raining, the party is cancelled. | angehaltenem / *anhaltendem / anhaltend
+c | Die ___ Mitarbeiter bekommen ein Zertifikat. | Staff who have taken part receive a certificate. | teilnehmende / *teilgenommenen / teilgenommen
+
+## 4051 | advanced-connectors | other | indem, sodass, falls, sofern, obwohl, je … desto
+rule: indem = by (doing), sodass = so that (result), falls/sofern = if/provided that, obwohl = although, während = while/whereas. All send the verb to the end.
+c | Man spart Energie, ___ man die Heizung herunterdreht. | You save energy by turning down the heating. | sodass / *indem / falls
+c | Es regnete stark, ___ das Fest ausfiel. | It rained heavily, so the party was cancelled. | *sodass / indem / obwohl
+c | ___ Sie Fragen haben, rufen Sie uns an. | If you have questions, call us. | Indem / *Falls / Sodass
+c | ___ er krank war, ging er zur Arbeit. | Although he was ill, he went to work. | *Obwohl / Weil / Falls
+c | Ich bin einverstanden, ___ die Kosten nicht steigen. | I agree, provided the costs don't rise. | indem / *sofern / sodass
+c | Je früher wir anfangen, ___ eher sind wir fertig. | The earlier we start, the sooner we'll be done. | als / *desto / dass
+c | ___ ich koche, deckst du den Tisch. | While I cook, you lay the table. | *Während / Indem / Sodass
+c | Er verbesserte sein Deutsch, ___ er jeden Tag Podcasts hörte. | He improved his German by listening to podcasts every day. | *indem / sodass / falls
+c | Der Zug hatte Verspätung, ___ wir den Anschluss verpassten. | The train was late, so we missed the connection. | indem / *sodass / sofern
+c | ___ es morgen regnet, bleiben wir zu Hause. | If it rains tomorrow, we'll stay at home. | *Falls / Indem / Obwohl
+
+## 4052 | advanced-connectors | word_order | trotzdem, deshalb, außerdem: connector first, then the verb
+rule: Adverb connectors (deshalb, trotzdem, außerdem, deswegen, dann, sonst) count as position 1: the verb comes right after them. Compare: obwohl … (verb at the end) / trotzdem + verb.
+requires: 1042
+c | Es regnet, trotzdem ___ spazieren. | It's raining; nevertheless we're going for a walk. | wir gehen / *gehen wir / wir gehen trotzdem
+c | Ich bin krank, deshalb ___ nicht. | I'm ill, so I'm not coming. | ich komme / *komme ich / komme
+c | Die Wohnung ist hell, außerdem ___ günstig. | The flat is bright; moreover it's cheap. | sie ist / *ist sie / ist
+o | ich war müde, / deshalb / bin / ich / früh / ins Bett gegangen | I was tired, so I went to bed early.
+o | er hat wenig Zeit, / trotzdem / hilft / er / uns | He has little time; nevertheless he helps us.
+o | beeil dich, / sonst / verpassen / wir / den Zug | Hurry up, otherwise we'll miss the train.
+c | Obwohl es regnet, ___ spazieren. | Although it's raining, we're going for a walk. | wir gehen / *gehen wir / gehen
+c | Es regnet. Wir gehen ___ spazieren. | It's raining. We're going for a walk anyway. | obwohl / *trotzdem / deshalb | trotzdem can also stand after the verb.
+o | der Bus kam nicht, / deswegen / habe / ich / ein Taxi / genommen | The bus didn't come, so I took a taxi.
+c | Ich habe Hunger, ___ esse ich jetzt. | I'm hungry, so I'm eating now. | weil / *deshalb / obwohl
+
+## 4061 | modal-particles | other | doch, mal, ja, eben/halt, denn: what they add
+rule: doch = encouragement or contradiction (Komm doch mit!), mal = softens a request (Hilf mir mal), ja = "as you know" (Das ist ja toll), eben/halt = "that's just how it is", denn = friendly interest in questions (Wie geht's denn?).
+c | Komm ___ mit! Das wird lustig. | Do come along! It'll be fun. | *doch / denn / eben
+c | Kannst du mir ___ helfen? | Can you give me a hand? | *mal / ja / denn
+c | Was ist ___ los? | What's the matter (then)? | *denn / mal / eben | denn makes a question friendlier.
+c | Das ist ___ eine tolle Idee! | That's a great idea (as we can see)! | *ja / mal / denn
+c | So ist das ___. Man kann nichts machen. | That's just the way it is. Nothing can be done. | *eben / doch / denn
+c | Du kommst nicht? – ___, ich komme! | You're not coming? – Yes, I am! | Ja / *Doch / Nein | doch = yes, answering a negative question.
+c | Ruf ___ an, wenn du da bist. | Give me a call when you're there. | *mal / ja / denn
+c | Das weißt du ___. | You know that (I told you)! | mal / *doch / denn | doch = reproach: you should know that.
+c | Wo wohnst du ___? | Where do you live, then? | *denn / mal / eben
+c | Dann nehmen wir ___ den Bus. | Then we'll just take the bus. | *halt / ja / denn

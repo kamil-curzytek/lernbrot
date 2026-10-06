@@ -20,6 +20,8 @@ export interface SchedulePayload {
   status: 'learning' | 'familiar' | 'strong';
   streak: number;
   difficulty: number;
+  stability: number;
+  fsrs_difficulty: number;
   next_review_at: string;
 }
 
@@ -53,12 +55,14 @@ export function buildSubmission(
       correct_answer: q.correctAnswer,
       is_correct: ok,
     });
-    const next = applyAnswer(progressByWord.get(q.wordId) ?? null, ok, ctx, config);
+    const next = applyAnswer(progressByWord.get(q.wordId) ?? null, { correct: ok, format: q.format }, ctx, config);
     schedule.push({
       word_id: q.wordId,
       status: next.status,
       streak: next.streak,
       difficulty: next.difficulty,
+      stability: next.stability,
+      fsrs_difficulty: next.fsrs_difficulty,
       next_review_at: next.next_review_at,
     });
     if (!ok) incorrectWordIds.push(q.wordId);

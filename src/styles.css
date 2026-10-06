@@ -229,3 +229,24 @@ label.field > span { display: block; font-size: 0.875rem; color: var(--muted); m
 .mistake .right { color: var(--good); font-weight: 600; }
 .remember { padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; font-weight: 550; }
 .pre-line { white-space: pre-line; }
+
+/* ---------- grammar practice ---------- */
+.order-line {
+  min-height: 48px; padding: 12px 14px; border-radius: 10px; border: 1px dashed var(--line);
+  font-size: 1.1rem; background: var(--surface-2);
+}
+.order-line.correct { border-style: solid; border-color: var(--good); background: var(--good-soft); }
+.order-line.wrong { border-style: solid; border-color: var(--bad); background: var(--bad-soft); }
+.chunk-bank { display: flex; flex-wrap: wrap; gap: 8px; }
+.chunk {
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px;
+  padding: 8px 14px; font: inherit; cursor: pointer;
+}
+.chunk:hover { border-color: var(--accent); }
+.chunk.used { opacity: 0.35; }
+.rule-note { margin-top: 6px; font-size: 0.92rem; color: var(--ink); }
+.skill-list { list-style: none; margin: 0; padding: 0; }
+.skill-list > li { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 0; border-top: 1px solid var(--line); }
+.skill-list > li:first-child { border-top: 0; }
+.weak-bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; flex: 1; min-width: 80px; }
+.weak-bar > div { height: 100%; background: var(--bad); }

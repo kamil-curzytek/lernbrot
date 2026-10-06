@@ -1,0 +1,384 @@
+# A1 grammar skills. Format: see scripts/build-grammar.mjs. Append new exercises at the END of a skill.
+
+## 1011 | sein-haben | verb_form | sein: ich bin, du bist …
+rule: sein: ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind.
+c | Ich ___ müde. | I'm tired. | *bin / bist / ist
+c | Du ___ sehr nett. | You're very nice. | bin / *bist / seid
+c | Das Wetter ___ heute schön. | The weather is nice today. | sind / *ist / bist
+c | Wir ___ aus Polen. | We're from Poland. | *sind / seid / ist
+c | Ihr ___ zu spät. | You're (all) late. | sind / *seid / ist
+c | Sind Sie Frau Kowalska? – Ja, das ___ ich. | Are you Ms Kowalska? – Yes, that's me. | ist / *bin / sind
+t | Wo ___ du? (sein) | Where are you? | bist
+t | Die Kinder ___ in der Schule. (sein) | The children are at school. | sind
+t | Er ___ 30 Jahre alt. (sein) | He's 30 years old. | ist
+t | ___ ihr zu Hause? (sein) | Are you (all) at home? | Seid
+
+## 1012 | sein-haben | verb_form | haben, and sein or haben?
+rule: haben: ich habe, du hast, er/sie/es hat, wir haben, ihr habt, sie/Sie haben. Hunger, Durst, Zeit: haben. Age, tired, ill: sein.
+c | Ich ___ Hunger. | I'm hungry. | *habe / bin / hat
+c | Hast du heute Zeit? – Nein, ich ___ keine Zeit. | Do you have time today? – No, I don't. | bin / *habe / hast
+c | Meine Schwester ___ zwei Kinder. | My sister has two children. | habt / haben / *hat
+c | Ich ___ 25 Jahre alt. | I'm 25 years old. | habe / *bin / hat | Age uses sein: Ich bin 25 (Jahre alt).
+c | Er ___ krank. | He's ill. | hat / *ist / habt
+c | ___ ihr Durst? | Are you (all) thirsty? | *Habt / Seid / Hat | Thirst uses haben: Durst haben.
+t | Du ___ ein schönes Auto. (haben) | You have a nice car. | hast
+t | Wir ___ morgen frei. (haben) | We're off tomorrow. | haben
+t | ___ Sie einen Termin? (haben) | Do you have an appointment? | Haben
+c | Wir ___ Angst vor dem Hund. | We're afraid of the dog. | sind / *haben / hat | Fear uses haben: Angst haben.
+
+## 1021 | personal-pronouns | pronoun | er, sie, es for things and people
+rule: der-words → er, die-words → sie, das-words → es, plural → sie. Even for things: der Tisch → er.
+c | Wo ist der Bahnhof? – ___ ist da vorne. | Where's the station? – It's over there. | *Er / Sie / Es | der Bahnhof → er.
+c | Wie ist die Wohnung? – ___ ist sehr hell. | How's the flat? – It's very bright. | Er / *Sie / Es | die Wohnung → sie.
+c | Wo ist das Handy? – ___ liegt auf dem Tisch. | Where's the phone? – It's on the table. | Er / Sie / *Es | das Handy → es.
+c | Kommen die Kinder mit? – Ja, ___ kommen mit. | Are the children coming too? – Yes, they are. | es / *sie / er | Plural → sie (verb in plural: kommen).
+c | Das ist mein Bruder. ___ heißt Tomasz. | This is my brother. His name is Tomasz. | *Er / Es / Sie
+c | Kennst du Anna? – Ja, ___ ist meine Kollegin. | Do you know Anna? – Yes, she's my colleague. | er / *sie / es
+c | Wie findest du den Film? – ___ ist super! | What do you think of the film? – It's great! | *Er / Sie / Es | der Film → er.
+c | Die Suppe ist kalt. ___ schmeckt nicht. | The soup is cold. It doesn't taste good. | Er / Es / *Sie | die Suppe → sie.
+c | Herr Müller, kommen ___ aus Berlin? | Mr Müller, are you from Berlin? | du / *Sie / ihr | Polite address: Sie (capital S), verb like "they".
+c | Max, kommst ___ morgen? | Max, are you coming tomorrow? | *du / Sie / ihr | One person you know: du.
+
+## 1031 | present-tense | verb_form | regular endings: -e, -st, -t, -en, -t, -en
+rule: Stem + ending: ich -e, du -st, er/sie/es -t, wir -en, ihr -t, sie/Sie -en (wohnen: ich wohne, du wohnst, er wohnt …).
+t | Ich ___ in Hamburg. (wohnen) | I live in Hamburg. | wohne
+t | Du ___ sehr gut Deutsch. (sprechen) | You speak German very well. | sprichst | sprechen changes its vowel: du sprichst.
+t | Er ___ als Koch. (arbeiten) | He works as a cook. | arbeitet | Stems ending in -t/-d add -e-: er arbeitet.
+t | Wir ___ jeden Tag Deutsch. (lernen) | We learn German every day. | lernen
+t | Ihr ___ zu laut. (spielen) | You (all) are playing too loudly. | spielt
+t | Wie ___ Sie? (heißen) | What's your name? | heißen / heissen
+t | Sie ___ jeden Morgen Kaffee. (trinken) | She drinks coffee every morning. | trinkt
+t | Was ___ du am Wochenende? (machen) | What are you doing at the weekend? | machst
+t | Du ___ gut. (tanzen) | You dance well. | tanzt | Stems ending in -s/-z/-ß: du tanzt (no extra s).
+t | Ich ___ meine Freunde. (besuchen) | I visit my friends. | besuche
+
+## 1032 | present-tense | verb_form | verbs that change their vowel (du fährst, er liest)
+rule: Some verbs change the vowel with du and er/sie/es only: fahren → du fährst, er fährt; lesen → du liest; nehmen → du nimmst; essen → du isst.
+t | Du ___ zu schnell. (fahren) | You drive too fast. | fährst
+t | Er ___ ein Buch. (lesen) | He's reading a book. | liest
+t | ___ du den Bus oder die Bahn? (nehmen) | Are you taking the bus or the train? | Nimmst
+t | Sie ___ kein Fleisch. (essen) | She doesn't eat meat. | isst
+t | Was ___ du? (sehen) | What can you see? | siehst
+t | Er ___ morgen nach Köln. (fahren) | He's driving to Cologne tomorrow. | fährt
+t | Wir ___ jeden Tag Zeitung. (lesen) | We read the paper every day. | lesen | The vowel only changes with du and er/sie/es.
+t | ___ du mir bitte? (helfen) | Will you help me, please? | Hilfst
+t | Das Kind ___ gut. (schlafen) | The child is sleeping well. | schläft
+t | Was ___ du mir? (geben) | What are you giving me? | gibst
+
+## 1041 | word-order | word_order | the verb is the 2nd element
+rule: In a statement the conjugated verb is always in position 2. Position 1 can be the subject or something else.
+o | ich / wohne / in Berlin | I live in Berlin. | also: in Berlin / wohne / ich
+o | meine Schwester / arbeitet / im Krankenhaus | My sister works in the hospital. | also: im Krankenhaus / arbeitet / meine Schwester
+o | wir / spielen / am Samstag / Fußball | We play football on Saturday. | also: am Samstag / spielen / wir / Fußball || Fußball / spielen / wir / am Samstag
+o | der Kurs / beginnt / um neun Uhr | The course starts at nine o'clock. | also: um neun Uhr / beginnt / der Kurs
+o | ich / trinke / morgens / Kaffee | I drink coffee in the mornings. | also: morgens / trinke / ich / Kaffee || Kaffee / trinke / ich / morgens
+o | Herr Braun / kommt / aus Österreich | Mr Braun comes from Austria. | also: aus Österreich / kommt / Herr Braun
+o | das Restaurant / ist / montags / geschlossen | The restaurant is closed on Mondays. | also: montags / ist / das Restaurant / geschlossen
+o | mein Bruder / hat / zwei Kinder | My brother has two children. | also: zwei Kinder / hat / mein Bruder
+o | wir / lernen / zusammen / Deutsch | We're learning German together. | also: zusammen / lernen / wir / Deutsch || Deutsch / lernen / wir / zusammen
+
+## 1042 | word-order | word_order | time or place first → verb, then the subject
+rule: If you start with something other than the subject (heute, am Montag, in Berlin), the verb stays 2nd and the subject comes right after it: Heute gehe ich …
+requires: 1041
+c | Heute ___ ins Kino. | Today I'm going to the cinema. | ich gehe / *gehe ich / gehe heute | After "Heute" the verb is 2nd, then the subject.
+c | Am Montag ___ einen Termin. | On Monday I have an appointment. | *habe ich / ich habe / habe
+c | Morgen ___ nach Hause. | Tomorrow we're flying home. | wir fliegen / *fliegen wir / fliegen
+c | In Deutschland ___ viel Brot. | People eat a lot of bread in Germany. | man isst / *isst man / man essen
+o | morgen / arbeite / ich / nicht | Tomorrow I'm not working. | also: ich / arbeite / morgen / nicht
+o | am Wochenende / besuchen / wir / unsere Eltern | At the weekend we visit our parents. | also: wir / besuchen / am Wochenende / unsere Eltern || wir / besuchen / unsere Eltern / am Wochenende
+o | jetzt / habe / ich / keine Zeit | I don't have time now. | also: ich / habe / jetzt / keine Zeit
+o | um acht Uhr / fährt / der Zug / ab | The train leaves at eight. | also: der Zug / fährt / um acht Uhr / ab
+o | leider / kann / ich / nicht kommen | Unfortunately I can't come. | also: ich / kann / leider / nicht kommen
+o | im Sommer / ist / es / sehr heiß | In summer it's very hot. | also: es / ist / im Sommer / sehr heiß
+
+## 1051 | questions | other | question words: wer, was, wo, wohin, woher, wann, wie
+rule: wer = who, was = what, wo = where, wohin = where to, woher = where from, wann = when, wie = how, warum = why, wie viel = how much.
+c | ___ kommst du? – Aus Polen. | Where are you from? – From Poland. | Wo / *Woher / Wohin
+c | ___ fährst du? – Nach Berlin. | Where are you going? – To Berlin. | Wo / Woher / *Wohin
+c | ___ wohnst du? – In Leipzig. | Where do you live? – In Leipzig. | *Wo / Wohin / Wann
+c | ___ beginnt der Kurs? – Um neun. | When does the course start? – At nine. | Wie / *Wann / Wo
+c | ___ ist das? – Das ist meine Chefin. | Who's that? – That's my boss. | Was / *Wer / Wie
+c | ___ machst du heute? – Ich arbeite. | What are you doing today? – I'm working. | Wer / Wie / *Was
+c | ___ kostet das? – Fünf Euro. | How much is that? – Five euros. | *Wie viel / Wann / Was für
+c | ___ geht es Ihnen? – Gut, danke. | How are you? – Fine, thanks. | Was / *Wie / Wo
+c | ___ lernst du Deutsch? – Für meine Arbeit. | Why are you learning German? – For my job. | Wie / *Warum / Wann
+c | ___ alt bist du? – 28. | How old are you? – 28. | *Wie / Was / Wann
+
+## 1052 | questions | word_order | yes/no questions: verb first
+rule: Yes/no questions start with the verb: Kommst du mit? W-questions: question word, then the verb: Wann kommst du?
+requires: 1041
+o? | kommst / du / heute / mit | Are you coming along today?
+o? | haben / Sie / einen Termin | Do you have an appointment?
+o? | ist / das / dein Auto | Is that your car?
+o? | sprechen / Sie / Englisch | Do you speak English?
+o? | wann / kommt / der Bus | When is the bus coming?
+o? | wo / wohnt / deine Familie | Where does your family live?
+o? | was / kostet / die Fahrkarte | How much is the ticket?
+o? | wie / heißt / deine Lehrerin | What's your teacher's name?
+o? | hast / du / morgen / Zeit | Do you have time tomorrow?
+o? | warum / lernst / du / Deutsch | Why are you learning German?
+
+## 1061 | negation | negation | nicht or kein?
+rule: kein replaces ein or no article before a noun: kein Auto, keine Zeit. Everything else is negated with nicht: nicht gut, nicht heute, nicht das Auto.
+c | Ich habe ___ Auto. | I don't have a car. | nicht / *kein / keine
+c | Das ist ___ gut. | That's not good. | kein / *nicht / keine
+c | Wir haben ___ Zeit. | We don't have time. | nicht / kein / *keine | Zeit is feminine with no article → keine.
+c | Er kommt heute ___. | He isn't coming today. | kein / *nicht / keine
+c | Ich trinke ___ Kaffee. | I don't drink coffee. | nicht / *keinen / keine | No article before Kaffee → kein-; masculine accusative → keinen.
+c | Das ist ___ mein Handy. | That's not my phone. | kein / keine / *nicht | With a possessive (mein) use nicht.
+c | Sie hat ___ Kinder. | She has no children. | *keine / nicht / kein
+c | Ich verstehe das ___. | I don't understand that. | kein / *nicht / keine
+c | Das ist ___ Problem. | That's no problem. | nicht / *kein / keine
+c | Ich wohne ___ in Berlin. | I don't live in Berlin. | kein / keine / *nicht
+
+## 1071 | articles | gender | der, die or das?
+rule: Learn every noun with its article. Reliable endings: -ung, -heit, -keit, -schaft, -ion → die; -chen → das. Plural: always die.
+c | ___ Wohnung ist klein. | The flat is small. | der / *die / das | -ung words are always die.
+c | ___ Tisch ist neu. | The table is new. | *der / die / das
+c | ___ Kind spielt im Garten. | The child is playing in the garden. | der / die / *das
+c | ___ Zeitung liegt auf dem Tisch. | The newspaper is on the table. | der / *die / das | -ung → die.
+c | ___ Mädchen heißt Lena. | The girl is called Lena. | der / die / *das | -chen words are always das, even for people.
+c | ___ Bahnhof ist da vorne. | The station is over there. | *der / die / das
+c | ___ Kinder sind müde. | The children are tired. | der / *die / das | Every plural takes die.
+c | ___ Information ist wichtig. | The information is important. | der / *die / das | -ion → die.
+c | ___ Wetter ist schlecht. | The weather is bad. | der / die / *das
+c | ___ Freiheit ist wichtig. | Freedom is important. | der / *die / das | -heit → die.
+
+## 1072 | articles | gender | ein or eine?
+rule: der and das words → ein, die words → eine: ein Tisch, ein Kind, eine Lampe. No plural of ein: Kinder (no article).
+c | Das ist ___ Lampe. | That's a lamp. | ein / *eine
+c | Ich habe ___ Bruder. | I have a brother. | *einen / eine / ein | Accusative masculine: einen.
+c | Das ist ___ Haus. | That's a house. | *ein / eine
+c | Sie hat ___ Katze. | She has a cat. | ein / *eine
+c | Das ist ___ Problem. | That's a problem. | *ein / eine
+c | Wir suchen ___ Wohnung. | We're looking for a flat. | ein / *eine
+c | Das ist ___ Stuhl. | That's a chair. | *ein / eine
+c | Ich brauche ___ Fahrkarte. | I need a ticket. | ein / *eine
+c | Er ist ___ guter Freund. | He's a good friend. | *ein / eine
+c | Das ist ___ Idee! | That's an idea! | ein / *eine
+
+## 1081 | nominative | case | the subject: who or what does it?
+rule: The subject (who/what does something) is in the nominative: der, die, das, ein, eine. After "sein" both sides are nominative: Das ist der Lehrer.
+c | ___ Lehrer kommt heute nicht. | The teacher isn't coming today. | *Der / Den / Dem
+c | Das ist ___ neuer Kollege. | That's a new colleague. | *ein / einen / einem | After sein: nominative.
+c | ___ Bus fährt um acht. | The bus leaves at eight. | Den / *Der / Dem
+c | Wo ist ___ Schlüssel? | Where's the key? | den / *der / dem
+c | ___ Kaffee ist kalt. | The coffee is cold. | *Der / Den / Das
+c | Heute kommt ___ Techniker. | The technician is coming today. | den / *der / dem | The subject can come after the verb, still nominative.
+m | Der Hund sieht die Katze. | Who sees whom? | *The dog sees the cat. / The cat sees the dog.
+m | Den Mann sieht die Frau. | Who sees whom? | The man sees the woman. / *The woman sees the man. | den = accusative: the man is the object.
+c | Mein Nachbar ist ___ Arzt. | My neighbour is a doctor. | *Ø (nothing) / einen / einem | Jobs after sein usually without article: Er ist Arzt.
+c | Wer ist das? – Das ist ___ Chef. | Who's that? – That's the boss. | den / *der / dem
+
+## 1091 | accusative | case | den, einen: only masculine changes
+rule: Direct object (what/whom?) = accusative. Only masculine changes: der → den, ein → einen, kein → keinen. die, das, plural stay the same.
+c | Ich kaufe ___ Tisch. | I'm buying the table. | der / *den / dem
+c | Ich habe ___ Hund. | I have a dog. | ein / *einen / einem
+c | Wir nehmen ___ Wohnung. | We're taking the flat. | *die / den / der | Feminine stays die.
+c | Siehst du ___ Kind? | Can you see the child? | den / *das / dem | Neuter stays das.
+c | Ich brauche ___ neuen Pass. | I need a new passport. | ein / *einen / einer
+c | Hast du ___ Termin? | Do you have an appointment? | ein / *einen / eine
+c | Ich trinke ___ Kaffee. | I'm drinking a coffee. | *einen / ein / eine
+c | Er sucht ___ Schlüssel. | He's looking for the key. | der / *den / dem
+c | Ich habe ___ Bruder. | I don't have a brother. | kein / *keinen / keine
+c | Kennst du ___ Mann? | Do you know the man? | der / *den / dem
+
+## 1092 | accusative | case | who does what? (the article decides)
+rule: den/einen mark the object, der/ein the subject, wherever they stand. Den Hund beißt der Mann = the man bites the dog.
+requires: 1091
+m | Den Lehrer fragt der Schüler. | Who asks whom? | *The pupil asks the teacher. / The teacher asks the pupil.
+m | Der Lehrer fragt den Schüler. | Who asks whom? | The pupil asks the teacher. / *The teacher asks the pupil.
+m | Den Hund beißt der Mann. | Who bites whom? | The dog bites the man. / *The man bites the dog.
+m | Einen Kollegen besucht der Chef. | Who visits whom? | *The boss visits a colleague. / A colleague visits the boss.
+m | Den Arzt ruft der Patient an. | Who calls whom? | *The patient calls the doctor. / The doctor calls the patient.
+m | Der Vater sucht den Sohn. | Who is looking for whom? | *The father is looking for the son. / The son is looking for the father.
+m | Den Vater sucht der Sohn. | Who is looking for whom? | The father is looking for the son. / *The son is looking for the father.
+m | Einen Nachbarn grüßt der Hausmeister. | Who greets whom? | A neighbour greets the caretaker. / *The caretaker greets a neighbour.
+m | Den Fahrer sieht der Polizist nicht. | Who doesn't see whom? | *The police officer doesn't see the driver. / The driver doesn't see the police officer.
+m | Der Kunde ruft den Verkäufer. | Who calls whom? | *The customer calls the shop assistant. / The shop assistant calls the customer.
+
+## 1101 | dative | case | after mit, bei, nach, zu, von, aus, seit
+rule: mit, bei, nach, zu, von, aus, seit always take the dative: dem (der/das words), der (die words), den …-n (plural). zu + dem = zum, zu + der = zur.
+c | Ich fahre mit ___ Bus. | I'm going by bus. | der / den / *dem
+c | Ich wohne bei ___ Eltern. | I live with my parents. | meine / *meinen / meinem | Plural dative: meinen Eltern.
+c | Er kommt aus ___ Türkei. | He comes from Turkey. | die / *der / dem | die Türkei → aus der Türkei.
+c | Ich gehe zu ___ Arzt. | I'm going to the doctor. | den / *dem / der | zu dem = zum Arzt.
+c | Seit ___ Woche bin ich krank. | I've been ill for a week. | eine / *einer / einem | die Woche → seit einer Woche.
+c | Das ist ein Geschenk von ___ Freundin. | That's a present from my girlfriend. | meine / *meiner / meinem
+c | Nach ___ Kurs gehen wir essen. | After the course we're going for a meal. | den / *dem / der
+c | Ich spreche mit ___ Kind. | I'm talking to the child. | das / *dem / den
+c | Wir fahren mit ___ Fahrrädern. | We're going by bike. | die / *den / dem | Plural dative: den Fahrrädern.
+c | Sie arbeitet bei ___ Firma Siemens. | She works at Siemens. | die / *der / den
+
+## 1102 | dative | pronoun | mir, dir: helfen, gefallen, gehören
+rule: Some verbs take the dative: helfen, danken, gefallen, gehören, schmecken, passen. Dative pronouns: mir, dir, ihm, ihr, uns, euch, ihnen, Ihnen.
+c | Kannst du ___ helfen? | Can you help me? | mich / *mir / ich
+c | Das Kleid gefällt ___. | I like the dress. | mich / *mir / ich
+c | Wem gehört das Fahrrad? – Es gehört ___. | Whose bike is that? – It's his. | ihn / *ihm / er
+c | Ich danke ___ für die Hilfe. | Thank you for the help. | Sie / *Ihnen / Ihr
+c | Schmeckt ___ die Suppe? | Do you like the soup? | dich / *dir / du
+c | Wie geht es ___? | How are you (all)? | *euch / ihr / eure
+c | Die Schuhe passen ___ nicht. | The shoes don't fit her. | sie / *ihr / ihn
+c | Wir helfen ___ beim Umzug. | We're helping them with the move. | sie / *ihnen / ihr
+c | Gefällt ___ die Wohnung? | Do you (formal) like the flat? | Sie / *Ihnen / Ihr
+c | Ich helfe ___ Kollegin. | I'm helping my colleague. | meine / *meiner / meinem
+
+## 1111 | modal-verbs | verb_form | ich kann, du musst, er will
+rule: Modal verbs: ich/er kann, muss, will, darf, soll, möchte (no -t!); du kannst, musst, willst, darfst, sollst, möchtest.
+t | Ich ___ gut schwimmen. (können) | I can swim well. | kann
+t | Du ___ morgen früh aufstehen. (müssen) | You have to get up early tomorrow. | musst
+t | Er ___ einen Kaffee trinken. (möchten) | He'd like to drink a coffee. | möchte
+t | Hier ___ man nicht rauchen. (dürfen) | You're not allowed to smoke here. | darf
+t | Wir ___ nach Spanien fahren. (wollen) | We want to go to Spain. | wollen
+t | ___ ihr mitkommen? (wollen) | Do you (all) want to come along? | Wollt
+t | Was ___ ich mitbringen? (sollen) | What should I bring? | soll
+t | Sie ___ sehr gut kochen. (können) | She can cook very well. | kann
+t | ___ du mir helfen? (können) | Can you help me? | Kannst
+t | Die Kinder ___ ins Bett. (müssen) | The children have to go to bed. | müssen
+
+## 1112 | modal-verbs | word_order | modal 2nd, infinitive at the end
+rule: The modal verb is in position 2, the infinitive goes to the very end: Ich kann heute nicht kommen.
+requires: 1041
+o | ich / kann / heute / nicht kommen | I can't come today. | also: heute / kann / ich / nicht kommen
+o | wir / müssen / um acht Uhr / anfangen | We have to start at eight. | also: um acht Uhr / müssen / wir / anfangen
+o | du / darfst / hier nicht / parken | You're not allowed to park here.
+o | er / will / eine neue Wohnung / suchen | He wants to look for a new flat.
+o | ich / möchte / einen Termin / machen | I'd like to make an appointment.
+o? | kannst / du / mir / helfen | Can you help me?
+o | morgen / muss / ich / zum Arzt gehen | Tomorrow I have to go to the doctor. | also: ich / muss / morgen / zum Arzt gehen
+o? | darf / ich / das Fenster / öffnen | May I open the window?
+o | Sie / sollen / den Antrag / unterschreiben | You're supposed to sign the application.
+o | am Wochenende / will / ich / lange schlafen | At the weekend I want to sleep in. | also: ich / will / am Wochenende / lange schlafen
+
+## 1121 | separable-verbs | word_order | anrufen → Ich rufe dich an.
+rule: Separable verbs split in statements and questions: the verb part goes 2nd, the prefix goes to the end: anrufen → Ich rufe dich morgen an.
+requires: 1041
+o | ich / rufe / dich / morgen / an | I'll call you tomorrow. | also: morgen / rufe / ich / dich / an
+o | der Zug / kommt / um zehn Uhr / an | The train arrives at ten o'clock. | also: um zehn Uhr / kommt / der Zug / an
+o | wir / kaufen / im Supermarkt / ein | We're shopping at the supermarket. | also: im Supermarkt / kaufen / wir / ein
+o | ich / stehe / jeden Tag um sechs / auf | I get up at six every day. | also: jeden Tag um sechs / stehe / ich / auf
+o? | kommst / du / mit | Are you coming along?
+o | der Film / fängt / um acht / an | The film starts at eight. | also: um acht / fängt / der Film / an
+o | sie / räumt / ihr Zimmer / auf | She's tidying up her room.
+o? | wann / fährt / der Bus / ab | When does the bus leave?
+o | ich / mache / das Fenster / zu | I'm closing the window.
+o | morgen / ziehen / wir / um | We're moving tomorrow. | also: wir / ziehen / morgen / um
+
+## 1122 | separable-verbs | verb_form | which form? (kommt … an, but: anrufen with a modal)
+rule: In a statement the prefix goes to the end (Ich rufe dich an). With a modal verb the separable verb stays together at the end (Ich muss dich anrufen).
+c | Der Zug ___ um acht Uhr an. | The train arrives at eight. | ankommt / *kommt / ankommen
+c | Ich muss morgen früh ___. | I have to get up early tomorrow. | stehe auf / *aufstehen / auf stehen
+c | Wann ___ der Kurs an? | When does the course start? | anfängt / *fängt / anfangen
+c | Kannst du mich später ___? | Can you call me later? | rufst an / *anrufen / an rufen
+c | Wir ___ heute Abend fern. | We're watching TV this evening. | fernsehen / *sehen / fernseht
+c | Ich möchte im Supermarkt ___. | I'd like to shop at the supermarket. | kaufe ein / *einkaufen / kaufen ein
+c | Er ___ seine Freundin ab. | He picks up his girlfriend. | abholt / *holt / abholen
+c | Du sollst das Formular ___. | You should fill in the form. | füllst aus / *ausfüllen / aus füllen
+c | Sie ___ jeden Morgen um sechs auf. | She gets up at six every morning. | aufsteht / *steht / aufstehen
+c | Wir müssen am Freitag ___. | We have to move on Friday. | ziehen um / *umziehen / um ziehen
+
+## 1131 | possessives | pronoun | mein, dein, sein, ihr, unser, euer, Ihr
+rule: mein (my), dein (your), sein (his/its), ihr (her/their), unser (our), euer (your, plural), Ihr (your, formal). Feminine and plural add -e: meine Mutter.
+c | Peter sucht ___ Schlüssel. | Peter is looking for his key. | ihren / *seinen / deinen
+c | Anna wohnt bei ___ Eltern. | Anna lives with her parents. | seinen / *ihren / meinen
+c | Herr Weber, ist das ___ Tasche? | Mr Weber, is that your bag? | deine / *Ihre / seine | Formal: Ihr- with capital I.
+c | Das ist ___ Mutter. | This is my mother. | mein / *meine / meinen
+c | Kinder, wo ist ___ Lehrerin? | Children, where's your teacher? | *eure / deine / ihre
+c | Wir besuchen ___ Großeltern. | We're visiting our grandparents. | unser / *unsere / unseren
+c | Die Kinder spielen mit ___ Hund. | The children are playing with their dog. | seinem / *ihrem / ihren
+c | Ist das ___ Fahrrad, Max? | Is that your bike, Max? | *dein / deine / Ihr
+c | Lisa ruft ___ Bruder an. | Lisa is calling her brother. | seinen / *ihren / ihrem
+c | Das ist Tom und das ist ___ Frau. | That's Tom and that's his wife. | ihre / *seine / sein
+
+## 1132 | possessives | case | endings: meinen, meinem, meiner
+rule: Possessives take the endings of ein: meinen (masc. accusative), meinem (masc./neuter dative), meiner (fem. dative), meinen (dative plural).
+requires: 1131
+c | Ich rufe ___ Bruder an. | I'm calling my brother. | mein / *meinen / meinem
+c | Ich wohne bei ___ Freundin. | I'm staying with my girlfriend. | meine / *meiner / meinem
+c | Er spricht mit ___ Chef. | He's talking to his boss. | sein / seinen / *seinem
+c | Wir besuchen ___ Tante. | We're visiting our aunt. | *unsere / unserer / unseren
+c | Hast du ___ Handy? | Do you have your phone? | deinen / *dein / deinem
+c | Sie fährt mit ___ Kindern in den Urlaub. | She's going on holiday with her children. | ihre / *ihren / ihrer
+c | Ich suche ___ Brille. | I'm looking for my glasses. | *meine / meinen / meiner
+c | Das Geschenk ist von ___ Eltern. | The present is from my parents. | meine / *meinen / meiner
+c | Kennst du ___ Mann? | Do you know her husband? | ihr / *ihren / ihrem
+c | Ich gehe mit ___ Hund spazieren. | I'm walking my dog. | meinen / *meinem / meiner
+
+## 1141 | prepositions | preposition | in, nach, zu, bei: going places
+rule: nach + city/country (nach Berlin, nach Hause); in + country with article (in die Türkei); zu + person or place (zum Arzt, zur Bank); bei = at someone's place (beim Arzt).
+c | Ich fahre morgen ___ Hamburg. | I'm going to Hamburg tomorrow. | in / zu / *nach
+c | Ich gehe ___ Arzt. | I'm going to the doctor. | nach / *zum / beim
+c | Wir sind heute ___ meiner Oma. | We're at my grandma's today. | zu / *bei / nach
+c | Er fährt ___ Hause. | He's going home. | zu / *nach / bei | nach Hause = (going) home; zu Hause = at home.
+c | Ich bin ___ Hause. | I'm at home. | nach / *zu / bei | zu Hause = at home.
+c | Sie fliegt ___ die USA. | She's flying to the USA. | nach / *in / zu | Countries with an article: in die USA, in die Schweiz.
+c | Kommst du ___ Party? | Are you coming to the party? | *zur / nach / bei
+c | Ich warte ___ Bahnhof. | I'm waiting at the station. | zum / *am / nach
+c | Das Geschenk ist ___ dich. | The present is for you. | *für / mit / zu
+c | Wir gehen ___ Bank. | We're going to the bank. | nach / *zur / in
+
+## 1142 | prepositions | case | für, ohne, um + accusative; mit, bei + dative
+rule: für, ohne, um, gegen, durch → accusative (für den Chef). mit, bei, nach, zu, von, aus, seit → dative (mit dem Chef).
+c | Das ist für ___ Chef. | That's for the boss. | *den / dem / der
+c | Ich komme ohne ___ Mann. | I'm coming without my husband. | meinem / *meinen / mein
+c | Wir gehen um ___ Haus. | We're walking around the house. | dem / *das / der
+c | Er spricht mit ___ Chef. | He's talking to the boss. | den / *dem / der
+c | Ich habe ein Geschenk für ___ Mutter. | I have a present for my mother. | *meine / meiner / meinem
+c | Sie wohnt bei ___ Tochter. | She lives with her daughter. | ihre / *ihrer / ihren
+c | Wir fahren durch ___ Stadt. | We're driving through the city. | der / *die / den
+c | Kaffee ohne ___ Zucker, bitte. | Coffee without sugar, please. | *Ø (nothing) / dem / den
+c | Ich bin gegen ___ Plan. | I'm against the plan. | dem / *den / der
+c | Das Paket ist von ___ Bruder. | The parcel is from my brother. | meinen / *meinem / mein
+
+## 1151 | perfekt | verb_form | the participle: gemacht, gegessen
+rule: Regular: ge- + stem + -t (machen → gemacht). Irregular: ge- + stem + -en, often a new vowel (trinken → getrunken). Verbs ending in -ieren and verbs with be-/ver-/er- have no ge- (telefoniert, besucht).
+t | Ich habe Pizza ___. (essen) | I ate pizza. | gegessen
+t | Wir haben Fußball ___. (spielen) | We played football. | gespielt
+t | Hast du den Film ___? (sehen) | Have you seen the film? | gesehen
+t | Er hat einen Brief ___. (schreiben) | He wrote a letter. | geschrieben
+t | Ich habe mit meiner Mutter ___. (telefonieren) | I spoke to my mother on the phone. | telefoniert | -ieren verbs: no ge-.
+t | Sie hat ihre Oma ___. (besuchen) | She visited her grandma. | besucht | be- verbs: no ge-.
+t | Wir haben Kaffee ___. (trinken) | We drank coffee. | getrunken
+t | Was hast du am Wochenende ___? (machen) | What did you do at the weekend? | gemacht
+t | Ich habe das nicht ___. (verstehen) | I didn't understand that. | verstanden | ver- verbs: no ge-.
+t | Er hat mich ___. (anrufen) | He called me. | angerufen | Separable verbs: ge- goes in the middle: an-ge-rufen.
+
+## 1152 | perfekt | tense | haben or sein?
+rule: Most verbs use haben. Verbs of movement from A to B (gehen, fahren, fliegen, kommen) and changes of state (aufstehen, einschlafen), plus sein, bleiben, passieren use sein.
+c | Ich ___ nach Berlin gefahren. | I went to Berlin. | habe / *bin
+c | Wir ___ Pizza gegessen. | We ate pizza. | *haben / sind
+c | ___ du gut geschlafen? | Did you sleep well? | *Hast / Bist | schlafen is not a movement or change: haben.
+c | Er ___ um sechs aufgestanden. | He got up at six. | hat / *ist
+c | Was ___ passiert? | What happened? | hat / *ist
+c | Sie ___ zu Hause geblieben. | She stayed at home. | hat / *ist | bleiben uses sein.
+c | Ich ___ gestern viel gearbeitet. | I worked a lot yesterday. | *habe / bin
+c | Wann ___ ihr angekommen? | When did you (all) arrive? | habt / *seid
+c | Wir ___ im Park spazieren gegangen. | We went for a walk in the park. | haben / *sind
+c | ___ du schon in Wien gewesen? | Have you ever been to Vienna? | Hast / *Bist
+
+## 1153 | perfekt | word_order | the participle goes to the end
+rule: haben/sein in position 2, the participle at the very end: Ich habe gestern einen Film gesehen.
+requires: 1041, 1151
+o | ich / habe / gestern / einen Film / gesehen | I watched a film yesterday. | also: gestern / habe / ich / einen Film / gesehen
+o | wir / sind / nach Italien / gefahren | We went to Italy.
+o | er / hat / das Formular / ausgefüllt | He filled in the form.
+o? | hast / du / gut / geschlafen | Did you sleep well?
+o | am Wochenende / haben / wir / Freunde besucht | At the weekend we visited friends. | also: wir / haben / am Wochenende / Freunde besucht
+o | sie / ist / um sieben / aufgestanden | She got up at seven. | also: um sieben / ist / sie / aufgestanden
+o? | was / hast / du / gekauft | What did you buy?
+o | der Zug / ist / pünktlich / angekommen | The train arrived on time.
+o | ich / habe / meine Schlüssel / vergessen | I forgot my keys.
+o | gestern / hat / es / geregnet | It rained yesterday. | also: es / hat / gestern / geregnet
+
+## 1161 | imperative | verb_form | Komm! Kommt! Kommen Sie!
+rule: du: stem without -st and without du (du kommst → Komm!; du nimmst → Nimm!). ihr: like the ihr form (Kommt!). Sie: verb first + Sie (Kommen Sie!). sein: Sei! Seid! Seien Sie!
+t | ___ bitte! (kommen, du) | Come here, please! | Komm
+t | ___ bitte Platz! (nehmen, Sie) | Please take a seat! | Nehmen Sie
+t | ___ leise, Kinder! (sein, ihr) | Be quiet, children! | Seid
+t | ___ mir bitte! (helfen, du) | Help me, please! | Hilf | Vowel change e→i stays: du hilfst → Hilf!
+t | ___ nicht so schnell! (fahren, du) | Don't drive so fast! | Fahr / Fahre | No umlaut in the imperative: du fährst → Fahr!
+t | ___ bitte hier! (unterschreiben, Sie) | Please sign here! | Unterschreiben Sie
+t | ___ ruhig! (sein, du) | Be calm! | Sei
+t | ___ das Fenster zu! (machen, ihr) | Close the window! | Macht
+t | ___ mich morgen an! (rufen, du) | Call me tomorrow! | Ruf / Rufe
+t | ___ bitte langsam! (sprechen, Sie) | Please speak slowly! | Sprechen Sie

@@ -65,16 +65,18 @@ describe('vocabulary seed', () => {
 });
 
 describe('grammar seed', () => {
-  it('has 15-20 A1 lessons, 10-15 A2 lessons, and B1/B2 as outline only', () => {
+  it('has 15-20 A1 lessons, 10-15 A2 lessons, and a complete lesson for every topic up to B2', () => {
     const lv = (l: string) => topics.filter((t) => t.cefr_level === l);
     expect(lv('A1').length).toBeGreaterThanOrEqual(15);
     expect(lv('A1').length).toBeLessThanOrEqual(20);
     expect(lv('A2').length).toBeGreaterThanOrEqual(10);
     expect(lv('A2').length).toBeLessThanOrEqual(15);
-    for (const t of [...lv('A1'), ...lv('A2')]) {
+    expect(lv('B1').length).toBeGreaterThanOrEqual(6);
+    expect(lv('B2').length).toBeGreaterThanOrEqual(5);
+    for (const t of topics) {
       for (const k of ['what', 'rule', 'examples', 'mistake', 'everyday', 'remember']) expect(t.content?.[k], `${t.slug}.${k}`).toBeTruthy();
+      expect(t.content.examples.length, t.slug).toBeGreaterThanOrEqual(2);
     }
-    for (const t of [...lv('B1'), ...lv('B2')]) expect(t.content).toBeNull();
   });
 
   it('links vocabulary to grammar (e.g. helfen -> Dative)', () => {

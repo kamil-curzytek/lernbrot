@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
-import { DEFAULT_SR_CONFIG } from '../lib/spacedRepetition/config';
+import { DEFAULT_SR_CONFIG, typicalGaps } from '../lib/spacedRepetition';
 
 // Mirrors the adaptive new-word rule in create_daily_session_for (migration 0005).
 function lessonMix(n: number) {
@@ -11,8 +11,16 @@ function lessonMix(n: number) {
   };
 }
 
-function formatIntervals(days: number[]) {
-  const parts = days.map((d) => (d === 1 ? '1 day' : `${d} days`));
+function humanDays(d: number): string {
+  if (d < 14) return d === 1 ? '1 day' : `${d} days`;
+  if (d < 60) return `${Math.round(d / 7)} weeks`;
+  if (d < 365) return `${Math.round(d / 30)} months`;
+  const years = Math.round((d / 365) * 2) / 2;
+  return years === 1 ? '1 year' : `${years} years`;
+}
+
+function formatGaps(days: number[]) {
+  const parts = days.map(humanDays);
   return `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}`;
 }
 
@@ -23,7 +31,8 @@ export default function About() {
   const app = useContext(AppContext);
   const n = app?.profile.daily_word_target ?? DEFAULT_DAILY_TARGET;
   const mix = lessonMix(n);
-  const cfg = DEFAULT_SR_CONFIG;
+  const gaps = typicalGaps(7);
+  const target = Math.round(DEFAULT_SR_CONFIG.requestRetention * 100);
 
   return (
     <div className="stack narrow about">
@@ -68,16 +77,35 @@ export default function About() {
       <details className="card">
         <summary>How reviews are spaced</summary>
         <p>
-          Every correct answer in a row makes the gap to the next review longer: {formatIntervals(cfg.intervalsDays)}.
-          That way you see a word again around the time you'd start to forget it.
+          Lernbrot keeps an estimate of how well you remember each word, and brings it back when your chance of
+          remembering it drops to about {target}&nbsp;%: just before you'd forget it. Every time you remember a word, the
+          gap grows. For a typical word it's about {formatGaps(gaps)}.
         </p>
         <p>
-          A wrong answer brings the word back <strong>tomorrow</strong>. You don't start from zero, though: a word you
-          knew well recovers faster than a brand-new one. Words you often get wrong are shown first.
+          A wrong answer brings the word back <strong>tomorrow</strong>, and you can practise it again right after the
+          quiz. If you come back late, after a holiday for example, and still remember a word, that counts in
+          your favour: its next gap gets longer.
         </p>
         <p className="muted small" style={{ margin: 0 }}>
-          The quiz also gets harder as you learn a word: from recognising it, to choosing it, to typing it, and finally
-          its article and plural.
+          New words start with multiple choice. After that you type the answer, because remembering a word yourself
+          sticks better than picking it from a list. Well-known nouns also ask for their article and plural.
+        </p>
+      </details>
+
+      <details className="card">
+        <summary>How grammar works</summary>
+        <p>
+          Every lesson, from A1 to B2, is a short explanation followed by practice. Each lesson is split into small rules,
+          and you practise one rule until you get it right three times.
+        </p>
+        <p>
+          After that, the rule comes back in your daily lesson: up to three grammar questions a day, on top of your words,
+          mixed from different lessons and spaced out like your vocabulary. Mixing rules is harder in the moment but
+          helps you remember them for longer.
+        </p>
+        <p className="muted small" style={{ margin: 0 }}>
+          When you get one wrong you see the rule behind it and a link to the lesson. <em>Progress</em> shows which
+          kinds of mistakes you make most (cases, word order, verb forms …) and where to practise them.
         </p>
       </details>
 

@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadGrammarSkills } from './build-grammar.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -51,20 +52,36 @@ export function loadContent() {
       links.push({ word_id: w.id, topic_id: t.id });
     }
   }
-  return { words, topics, links };
+  const { skills: grammarSkills, problems } = loadGrammarSkills();
+  if (problems.length) {
+    throw new Error(`grammar content has problems (run node scripts/build-grammar.mjs):\n${problems.join('\n')}`);
+  }
+  const skills = grammarSkills.map((sk, i) => ({
+    id: sk.id,
+    topic_id: sk.topicId,
+    slug: `${sk.topic}-${sk.id % 10}`,
+    title: sk.title,
+    category: sk.category,
+    requires: sk.requires,
+    item_count: sk.items.length,
+    sort_order: i + 1,
+  }));
+  return { words, topics, links, skills };
 }
 
 const lit = (v) => {
   if (v === null || v === undefined) return 'null';
   if (typeof v === 'number') return String(v);
+  if (Array.isArray(v) && v.every((x) => Number.isInteger(x))) return `'{${v.join(',')}}'::int[]`;
   if (typeof v === 'object') return `'${JSON.stringify(v).replace(/'/g, "''")}'::jsonb`;
   return `'${String(v).replace(/'/g, "''")}'`;
 };
 
-export function buildSql({ words, topics, links }) {
+export function buildSql({ words, topics, links, skills }) {
   const wordCols = ['id', 'german', 'english', 'part_of_speech', 'article', 'plural', 'cefr_level',
     'frequency_rank', 'topic', 'example_sentence', 'example_translation', 'usage_note'];
   const topicCols = ['id', 'slug', 'title', 'cefr_level', 'planned_order', 'summary', 'content'];
+  const skillCols = ['id', 'topic_id', 'slug', 'title', 'category', 'requires', 'item_count', 'sort_order'];
   const upsert = (table, cols, rows, key) =>
     `insert into public.${table} (${cols.join(', ')}) values\n` +
     rows.map((r) => `  (${cols.map((c) => lit(r[c])).join(', ')})`).join(',\n') +
@@ -76,6 +93,7 @@ export function buildSql({ words, topics, links }) {
     '-- Idempotent: safe to run repeatedly.',
     'begin;',
     upsert('grammar_topics', topicCols, topics, 'id'),
+    upsert('grammar_skills', skillCols, skills, 'id'),
     upsert('vocabulary_words', wordCols, words, 'id'),
     `delete from public.vocabulary_grammar_links;`,
     `insert into public.vocabulary_grammar_links (word_id, topic_id) values\n` +
@@ -90,5 +108,5 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const out = join(root, 'supabase/seed/content.sql');
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, buildSql(content));
-  console.log(`wrote ${out}: ${content.words.length} words, ${content.topics.length} grammar topics, ${content.links.length} links`);
+  console.log(`wrote ${out}: ${content.words.length} words, ${content.topics.length} grammar topics, ${content.skills.length} grammar skills, ${content.links.length} links`);
 }

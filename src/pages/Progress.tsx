@@ -6,6 +6,7 @@ import { browserTimeZone } from '../lib/time';
 import { getDashboardStats } from '../services/progressService';
 import { DailyTargetPicker } from '../components/dashboard/DailyTargetPicker';
 import { ChangePassword } from '../components/progress/ChangePassword';
+import { WeakSpots } from '../components/progress/WeakSpots';
 import { updateDailyTarget, updateSettings } from '../services/profileService';
 import { listAttempts } from '../services/quizService';
 import { CEFR_LEVELS, type CefrLevel } from '../types';
@@ -77,6 +78,8 @@ export default function Progress() {
           </ul>
         </section>
       )}
+
+      <WeakSpots />
 
       <section className="card">
         <h2>Recent quizzes</h2>

@@ -1,0 +1,240 @@
+# A2 grammar skills. Format: see scripts/build-grammar.mjs. Append new exercises at the END of a skill.
+
+## 2011 | reflexive-verbs | pronoun | mich, dich, sich, uns, euch
+rule: Reflexive pronouns: ich → mich, du → dich, er/sie/es/man → sich, wir → uns, ihr → euch, sie/Sie → sich.
+c | Ich freue ___ auf das Wochenende. | I'm looking forward to the weekend. | mir / *mich / sich
+c | Du musst ___ beeilen! | You have to hurry! | *dich / dir / sich
+c | Er interessiert ___ für Fußball. | He's interested in football. | ihn / *sich / ihm
+c | Wir treffen ___ um acht. | We're meeting at eight. | sich / *uns / euch
+c | Habt ihr ___ schon angemeldet? | Have you (all) registered yet? | sich / uns / *euch
+c | Erinnern Sie ___ an mich? | Do you remember me? | *sich / Sie / Ihnen
+c | Ich habe ___ erkältet. | I've caught a cold. | mir / *mich / sich
+c | Die Kinder freuen ___ über das Geschenk. | The children are happy about the present. | ihnen / *sich / euch
+c | Setz ___ bitte! | Please sit down! | sich / *dich / dir
+c | Man muss ___ an die Regeln halten. | You have to stick to the rules. | man / *sich / ihn
+
+## 2021 | subordinate-clauses | word_order | weil, dass, wenn: the verb goes to the end
+rule: After weil, dass, wenn, ob, als, obwohl the conjugated verb goes to the very end of the clause: …, weil ich müde bin.
+requires: 1041
+o | ich bleibe zu Hause, / weil / ich / krank / bin | I'm staying at home because I'm ill.
+o | ich glaube, / dass / der Zug / Verspätung / hat | I think the train is delayed.
+o | ruf mich an, / wenn / du / Zeit / hast | Call me when you have time.
+o | ich weiß nicht, / ob / er / heute / kommt | I don't know if he's coming today.
+o | wir gehen spazieren, / obwohl / es / regnet | We're going for a walk although it's raining.
+o | sie lernt Deutsch, / weil / sie / in Berlin / arbeitet | She's learning German because she works in Berlin.
+o | es ist wichtig, / dass / du / pünktlich / bist | It's important that you're on time.
+o | ich komme mit, / wenn / ich / nicht arbeiten / muss | I'll come along if I don't have to work.
+o | er sagt, / dass / er / keine Zeit / hat | He says he doesn't have time.
+o | ich war müde, / weil / ich / schlecht / geschlafen habe | I was tired because I slept badly.
+
+## 2022 | subordinate-clauses | other | weil, dass, wenn, ob or denn?
+rule: weil = because (verb to the end), denn = because (normal word order), dass = that, wenn = if/when, ob = whether (yes/no question inside a sentence).
+c | Ich weiß nicht, ___ der Laden heute offen ist. | I don't know whether the shop is open today. | dass / *ob / wenn
+c | Ich komme nicht, ___ ich krank bin. | I'm not coming because I'm ill. | *weil / denn / ob
+c | Ich komme nicht, ___ ich bin krank. | I'm not coming because I'm ill. | weil / *denn / dass | After denn the verb stays 2nd.
+c | ___ es regnet, nehmen wir das Auto. | If it rains we'll take the car. | Ob / *Wenn / Dass
+c | Ich hoffe, ___ alles klappt. | I hope everything works out. | ob / *dass / wenn
+c | Kannst du mir sagen, ___ der Bus fährt? | Can you tell me when the bus leaves? | *wann / ob / dass | Question words (wann, wo, wie) also send the verb to the end.
+c | Er fragt, ___ wir morgen Zeit haben. | He's asking whether we have time tomorrow. | dass / *ob / weil
+c | Ich finde, ___ das eine gute Idee ist. | I think that's a good idea. | ob / *dass / weil
+c | ___ ich nach Hause komme, koche ich. | When I get home, I cook. | *Wenn / Ob / Dass
+c | Ich lerne viel, ___ ich die Prüfung bestehen will. | I study a lot because I want to pass the exam. | *weil / denn / ob
+
+## 2023 | subordinate-clauses | word_order | subordinate clause first: verb, verb
+rule: If the sentence starts with the weil/wenn/dass clause, the main clause starts with its verb: Wenn ich Zeit habe, komme ich. (verb – comma – verb)
+requires: 2021, 1042
+c | Wenn ich Zeit habe, ___ mit. | If I have time, I'll come along. | ich komme / *komme ich / komme
+c | Weil der Bus nicht kam, ___ zu spät. | Because the bus didn't come, I was late. | ich war / *war ich / war
+c | Als ich jung war, ___ in Krakau. | When I was young, I lived in Kraków. | *wohnte ich / ich wohnte / wohnte
+c | Wenn es regnet, ___ zu Hause. | If it rains, we'll stay at home. | wir bleiben / *bleiben wir / bleiben
+c | Obwohl er müde ist, ___ weiter. | Although he's tired, he keeps working. | er arbeitet / *arbeitet er / er arbeiten
+o | wenn du Hilfe brauchst, / ruf / mich / an | If you need help, call me.
+o | weil ich krank bin, / bleibe / ich / zu Hause | Because I'm ill, I'm staying at home.
+o | wenn das Wetter gut ist, / gehen / wir / schwimmen | If the weather's good, we'll go swimming.
+o | als ich ankam, / war / der Laden / schon zu | When I arrived, the shop was already closed.
+o | dass du kommst, / freut / mich / sehr | I'm very pleased that you're coming.
+
+## 2031 | two-way-prepositions | case | Wo? (dative) or Wohin? (accusative)
+rule: in, an, auf, über, unter, vor, hinter, neben, zwischen: Wo? (position) → dative: im Kino. Wohin? (movement to) → accusative: ins Kino.
+c | Ich gehe heute ___ Kino. | I'm going to the cinema today. | im / *ins
+c | Wir sind gerade ___ Kino. | We're at the cinema right now. | *im / ins
+c | Leg das Buch auf ___ Tisch! | Put the book on the table! | dem / *den | legen = movement (wohin?) → accusative.
+c | Das Buch liegt auf ___ Tisch. | The book is on the table. | *dem / den | liegen = position (wo?) → dative.
+c | Ich hänge das Bild an ___ Wand. | I'm hanging the picture on the wall. | der / *die
+c | Das Bild hängt an ___ Wand. | The picture is hanging on the wall. | *der / die
+c | Das Auto steht vor ___ Haus. | The car is in front of the house. | das / *dem
+c | Er fährt das Auto in ___ Garage. | He's driving the car into the garage. | der / *die
+c | Die Katze schläft unter ___ Bett. | The cat is sleeping under the bed. | das / *dem
+c | Setz dich neben ___ Fenster! | Sit down next to the window! | dem / *das | sich setzen = movement → accusative.
+
+## 2032 | two-way-prepositions | verb_form | stellen/stehen, legen/liegen, hängen
+rule: Movement (accusative): stellen, legen, setzen, hängen (I hang it). Position (dative): stehen, liegen, sitzen, hängen (it hangs).
+requires: 2031
+c | Ich ___ die Flasche in den Kühlschrank. | I'm putting the bottle in the fridge. | stehe / *stelle
+c | Die Flasche ___ im Kühlschrank. | The bottle is in the fridge. | *steht / stellt
+c | Wo ___ meine Brille? | Where are my glasses? | legt / *liegt
+c | Ich ___ das Handy auf den Tisch. | I'm putting the phone on the table. | *lege / liege
+c | Das Kind ___ auf dem Stuhl. | The child is sitting on the chair. | *sitzt / setzt
+c | Er ___ sich auf das Sofa. | He sits down on the sofa. | sitzt / *setzt
+c | Der Mantel ___ an der Garderobe. | The coat is hanging on the coat rack. | *hängt / hängt sich
+c | Wohin hast du den Schlüssel ___? | Where did you put the key? | gelegen / *gelegt
+c | Der Schlüssel hat auf dem Tisch ___. | The key was lying on the table. | gelegt / *gelegen
+c | Wir ___ den Tisch ans Fenster. | We're putting the table by the window. | stehen / *stellen
+
+## 2041 | dative-verbs | case | dative or accusative after the verb?
+rule: Most verbs take an accusative object (sehen, besuchen, fragen, anrufen). Some always take the dative: helfen, danken, gefallen, gehören, passen, schmecken, antworten, gratulieren.
+c | Ich frage ___ Lehrer. | I'm asking the teacher. | *den / dem
+c | Ich helfe ___ Nachbarn. | I'm helping the neighbour. | den / *dem
+c | Wir besuchen ___ Oma. | We're visiting grandma. | *die / der
+c | Die Jacke gefällt ___ Frau. | The woman likes the jacket. | die / *der
+c | Ich rufe ___ später an. | I'll call you later. | *dich / dir
+c | Kannst du ___ antworten? | Can you answer me? | mich / *mir
+c | Wir gratulieren ___ zum Geburtstag. | Happy birthday to you! | *dir / dich
+c | Ich sehe ___ morgen. | I'll see you tomorrow. | dir / *dich
+c | Das Auto gehört ___ Chef. | The car belongs to the boss. | den / *dem
+c | Ich danke ___ Kollegen für die Hilfe. | I thank my colleague for the help. | meinen / *meinem
+
+## 2051 | perfekt-sein | tense | sein in the Perfekt: movement, change, bleiben, passieren
+rule: sein: movement from A to B (gehen, fahren, fliegen, laufen, umziehen), change of state (aufwachen, einschlafen, sterben, werden), and sein, bleiben, passieren. Everything else: haben.
+c | Wir ___ letztes Jahr umgezogen. | We moved last year. | haben / *sind
+c | Ich ___ gestern früh eingeschlafen. | I fell asleep early yesterday. | habe / *bin
+c | Er ___ Arzt geworden. | He became a doctor. | hat / *ist
+c | Ich ___ eine neue Wohnung gefunden. | I found a new flat. | *habe / bin
+c | ___ ihr mit dem Zug gefahren? | Did you (all) go by train? | Habt / *Seid
+c | Sie ___ den ganzen Tag gelaufen. | She walked all day. | hat / *ist
+c | Wir ___ viel gelacht. | We laughed a lot. | *haben / sind
+c | Was ___ denn passiert? | What happened? | hat / *ist
+c | Ich ___ im Urlaub viel geschwommen. | I swam a lot on holiday. | habe / *bin | Swimming as movement: sein (southern German also haben).
+c | Das Paket ___ nicht angekommen. | The parcel hasn't arrived. | hat / *ist
+
+## 2061 | praeteritum-basics | tense | war, hatte, konnte, musste, wollte
+rule: When speaking, the Präteritum is mainly used for sein (war), haben (hatte) and modal verbs (konnte, musste, wollte, durfte, sollte). ich and er have no ending: ich war, er hatte.
+t | Gestern ___ ich krank. (sein) | I was ill yesterday. | war
+t | Wir ___ keine Zeit. (haben) | We didn't have time. | hatten
+t | Ich ___ nicht kommen. (können) | I couldn't come. | konnte
+t | Er ___ lange warten. (müssen) | He had to wait a long time. | musste
+t | Wo ___ du? (sein) | Where were you? | warst
+t | ___ ihr Hunger? (haben) | Were you (all) hungry? | Hattet
+t | Sie ___ Ärztin werden. (wollen) | She wanted to become a doctor. | wollte
+t | Als Kind ___ ich nicht fernsehen. (dürfen) | As a child I wasn't allowed to watch TV. | durfte
+t | Das Wetter ___ schön. (sein) | The weather was nice. | war
+t | Du ___ mich anrufen. (sollen) | You were supposed to call me. | solltest
+
+## 2071 | comparative-superlative | adjective_ending | schneller, am schnellsten (and the irregular ones)
+rule: Comparative: + -er (schnell → schneller), often with umlaut (alt → älter). Superlative: am + -sten (am schnellsten). Irregular: gut – besser – am besten, viel – mehr – am meisten, gern – lieber – am liebsten.
+t | Der Zug ist ___ als der Bus. (schnell) | The train is faster than the bus. | schneller
+t | Mein Bruder ist ___ als ich. (alt) | My brother is older than me. | älter / aelter
+t | Heute ist das Wetter ___ als gestern. (gut) | The weather is better today than yesterday. | besser
+t | Ich trinke ___ Tee als Kaffee. (gern) | I prefer tea to coffee. | lieber
+t | Im Sommer ist es hier ___. (heiß, superlative) | It's hottest here in summer. | am heißesten / am heissesten
+t | Wer kocht ___? (gut, superlative) | Who cooks best? | am besten
+t | Berlin ist ___ als München. (groß) | Berlin is bigger than Munich. | größer / groesser
+t | Ich arbeite heute ___ als gestern. (viel) | I'm working more today than yesterday. | mehr
+t | Am Wochenende schlafe ich ___. (lang, superlative) | At the weekend I sleep longest. | am längsten / am laengsten
+t | Die Wohnung ist ___ als die alte. (teuer) | The flat is more expensive than the old one. | teurer | teuer drops the e: teurer.
+
+## 2072 | comparative-superlative | other | als or wie?
+rule: Different: comparative + als (größer als). The same: so … wie (so groß wie).
+c | Er ist größer ___ sein Vater. | He's taller than his father. | wie / *als
+c | Sie ist so alt ___ ich. | She's as old as me. | als / *wie
+c | Das Essen war besser ___ gestern. | The food was better than yesterday. | *als / wie
+c | Der Film ist nicht so gut ___ das Buch. | The film isn't as good as the book. | als / *wie
+c | Hier ist es teurer ___ in Polen. | It's more expensive here than in Poland. | *als / wie
+c | Ich bin genauso müde ___ du. | I'm just as tired as you. | als / *wie
+c | Heute ist es kälter ___ gestern. | It's colder today than yesterday. | *als / wie
+c | Mein Deutsch ist nicht so gut ___ dein Deutsch. | My German isn't as good as yours. | als / *wie
+c | Das dauert länger ___ geplant. | That's taking longer than planned. | *als / wie
+c | Sie spricht so schnell ___ ein Radiomoderator. | She speaks as fast as a radio presenter. | als / *wie
+
+## 2081 | adjective-endings | adjective_ending | after der/die/das: -e or -en
+rule: After der, die, das (and dieser, jeder): -e in the nominative singular (der neue Job) and for die/das in the accusative; everywhere else -en (den neuen Job, dem neuen Job, die neuen Jobs).
+c | Der neu___ Kollege ist nett. | The new colleague is nice. | *e / en / er
+c | Ich kaufe den rot___ Pullover. | I'm buying the red jumper. | e / *en / er
+c | Die klein___ Wohnung ist teuer. | The small flat is expensive. | *e / en / es
+c | Wir wohnen in dem alt___ Haus. | We live in the old house. | e / *en / es
+c | Das neu___ Handy ist super. | The new phone is great. | *e / en / es
+c | Ich nehme die blau___ Tasche. | I'll take the blue bag. | *e / en / er
+c | Die neu___ Nachbarn sind laut. | The new neighbours are noisy. | e / *en / er | Plural: always -en after die.
+c | Mit dem neu___ Auto fahre ich zur Arbeit. | I drive to work in the new car. | e / *en / em
+c | Kennst du das neu___ Restaurant? | Do you know the new restaurant? | *e / en / es
+c | Ich helfe der alt___ Frau. | I'm helping the old woman. | e / *en / er
+
+## 2082 | adjective-endings | adjective_ending | after ein/kein/mein: -er, -es, -e, -en
+rule: After ein, kein, mein … the adjective shows the gender where the article can't: ein neuer Job (der), ein neues Auto (das), eine neue Wohnung (die); accusative masculine: einen neuen Job; dative: -en.
+requires: 2081
+c | Das ist ein gut___ Film. | That's a good film. | e / en / *er
+c | Ich habe ein neu___ Fahrrad. | I have a new bike. | e / en / *es
+c | Sie sucht eine groß___ Wohnung. | She's looking for a big flat. | *e / en / er
+c | Ich brauche einen neu___ Pass. | I need a new passport. | e / *en / er
+c | Er ist mein best___ Freund. | He's my best friend. | e / en / *er
+c | Wir haben ein klein___ Problem. | We have a small problem. | e / en / *es
+c | Sie wohnt in einer schön___ Stadt. | She lives in a beautiful city. | e / *en / er
+c | Das ist kein schlecht___ Preis. | That's not a bad price. | e / en / *er
+c | Ich trinke einen heiß___ Tee. | I'm drinking a hot tea. | e / *en / er
+c | Er fährt mit seinem alt___ Auto. | He drives his old car. | e / *en / es
+
+## 2091 | polite-requests | mood | hätte, könnte, würde: polite forms
+rule: Polite requests: Ich hätte gern … (I'd like …), Könnten Sie …? (Could you …?), Würden Sie …? (Would you …?), Ich würde gern … (I'd like to …).
+c | Ich ___ gern einen Kaffee. | I'd like a coffee. | habe / *hätte / würde
+c | ___ Sie mir bitte helfen? | Could you help me, please? | *Könnten / Können / Hätten | Könnten is more polite than können.
+c | ___ Sie bitte das Fenster schließen? | Would you close the window, please? | *Würden / Wären / Hätten
+c | Ich ___ gern mit Frau Schmidt sprechen. | I'd like to speak to Ms Schmidt. | hätte / *würde / wäre
+c | ___ Sie einen Moment Zeit? | Would you have a moment? | *Hätten / Würden / Könnten
+c | ___ ich bitte die Rechnung haben? | Could I have the bill, please? | *Könnte / Würde / Hätte
+c | Wir ___ gern ein Doppelzimmer. | We'd like a double room. | *hätten / würden / wären
+c | Es ___ schön, wenn du kommst. | It would be nice if you came. | würde / *wäre / hätte
+c | ___ du mir bitte das Salz geben? | Could you pass me the salt, please? | *Könntest / Hättest / Wärst
+c | Ich ___ gern einen Termin vereinbaren. | I'd like to make an appointment. | hätte / *würde / wäre
+
+## 2101 | verbs-with-prepositions | preposition | warten auf, sich freuen auf, Angst haben vor …
+rule: Many verbs have a fixed preposition; learn it with the verb: warten auf, sich freuen auf (future) / über (now), sich kümmern um, Angst haben vor, denken an, sich interessieren für, teilnehmen an.
+c | Ich warte ___ den Bus. | I'm waiting for the bus. | für / *auf / an
+c | Wir freuen uns ___ den Urlaub. | We're looking forward to the holiday. | über / *auf / für | sich freuen auf = looking forward (future).
+c | Sie freut sich ___ das Geschenk. | She's happy about the present. | auf / *über / für | sich freuen über = happy about (already here).
+c | Er kümmert sich ___ die Kinder. | He looks after the children. | für / *um / an
+c | Hast du Angst ___ Hunden? | Are you afraid of dogs? | von / *vor / für
+c | Ich denke oft ___ meine Familie. | I often think about my family. | über / *an / von
+c | Interessierst du dich ___ Politik? | Are you interested in politics? | an / *für / über
+c | Ich nehme ___ dem Kurs teil. | I'm taking part in the course. | *an / auf / bei
+c | Wir sprechen morgen ___ das Problem. | We'll talk about the problem tomorrow. | von / *über / an
+c | Ich bewerbe mich ___ die Stelle. | I'm applying for the job. | für / *um / auf
+
+## 2102 | verbs-with-prepositions | pronoun | darauf, daran: worauf, woran
+rule: For things, preposition + it = da(r) + preposition: auf den Bus → darauf, an die Prüfung → daran. Questions: wo(r) + preposition: Worauf wartest du? For people: auf wen? auf ihn.
+requires: 2101
+c | Wartest du auf den Bus? – Ja, ich warte ___. | Are you waiting for the bus? – Yes, I'm waiting for it. | auf ihn / *darauf / worauf
+c | ___ wartest du? – Auf meine Freundin. | Who are you waiting for? – For my girlfriend. | Worauf / *Auf wen / Darauf | For people: auf wen.
+c | ___ denkst du? – An die Prüfung. | What are you thinking about? – The exam. | *Woran / An wen / Daran
+c | Freust du dich auf den Urlaub? – Ja, ich freue mich sehr ___. | Are you looking forward to the holiday? – Yes, very much. | *darauf / worauf / auf ihn
+c | ___ interessierst du dich? – Für Musik. | What are you interested in? – Music. | Dafür / *Wofür / Für wen
+c | Hast du an den Termin gedacht? – Oh nein, ___ habe ich nicht gedacht. | Did you remember the appointment? – Oh no, I didn't. | *daran / woran / an ihn
+c | ___ sprecht ihr? – Über den Film. | What are you talking about? – The film. | Darüber / *Worüber / Über wen
+c | Kümmerst du dich um die Katze? – Ja, ich kümmere mich ___. | Will you look after the cat? – Yes, I will. | *darum / worum / um sie
+c | Wartest du auf Peter? – Ja, ich warte ___. | Are you waiting for Peter? – Yes. | darauf / *auf ihn / worauf | People: preposition + pronoun.
+c | ___ hast du Angst? – Vor der Prüfung. | What are you afraid of? – The exam. | Davor / *Wovor / Vor wem
+
+## 2111 | future-werden | verb_form | werden + infinitive
+rule: werden: ich werde, du wirst, er wird, wir werden, ihr werdet, sie werden + infinitive at the end. For plans German usually uses the present + a time word: Morgen fahre ich.
+t | Ich ___ dich morgen anrufen. (werden) | I'll call you tomorrow. | werde
+t | Es ___ morgen regnen. (werden) | It's going to rain tomorrow. | wird
+t | ___ du mir helfen? (werden) | Will you help me? | Wirst
+t | Wir ___ das schaffen. (werden) | We'll manage it. | werden
+t | ___ ihr nächstes Jahr umziehen? (werden) | Are you (all) going to move next year? | Werdet
+o | ich / werde / nächstes Jahr / in Berlin / arbeiten | Next year I'll be working in Berlin. | also: nächstes Jahr / werde / ich / in Berlin / arbeiten
+o | es / wird / bald / dunkel / werden | It'll get dark soon. | also: bald / wird / es / dunkel / werden
+c | Morgen ___ ich nach Hamburg. | Tomorrow I'm going to Hamburg. | *fahre / fahren / werde | With a time word the present is usual for the future.
+o? | wirst / du / zur Party / kommen | Will you come to the party?
+t | Sie ___ sicher die Prüfung bestehen. (werden) | She'll surely pass the exam. | wird
+
+## 2121 | zu-infinitive | verb_form | zu + infinitive, and when not to use zu
+rule: Many verbs and phrases need zu + infinitive at the end: versuchen, anfangen, vergessen, Lust haben, Zeit haben, es ist wichtig …: Ich versuche, pünktlich zu sein. NO zu after modal verbs (können, müssen …), werden, lassen. Separable verbs: anzurufen.
+c | Ich versuche, pünktlich ___. | I try to be on time. | sein / *zu sein / zu bin
+c | Ich muss morgen früh ___. | I have to get up early tomorrow. | *aufstehen / aufzustehen / zu aufstehen | No zu after modal verbs.
+c | Hast du Lust, ins Kino ___? | Do you feel like going to the cinema? | gehen / *zu gehen / gehst
+c | Ich habe vergessen, dich ___. | I forgot to call you. | anrufen / zu anrufen / *anzurufen | Separable verbs: zu goes in the middle: anzurufen.
+c | Es ist wichtig, regelmäßig Deutsch ___. | It's important to practise German regularly. | üben / *zu üben / übt
+c | Wir können heute nicht ___. | We can't come today. | *kommen / zu kommen / kommt
+c | Er fängt an, die Küche ___. | He's starting to tidy the kitchen. | aufräumen / zu aufräumen / *aufzuräumen
+c | Ich habe keine Zeit, das ___. | I don't have time to read that. | lesen / *zu lesen / liest
+c | Sie lässt ihr Auto ___. | She's having her car repaired. | *reparieren / zu reparieren / repariert | No zu after lassen.
+c | Vergiss nicht, die Tür ___! | Don't forget to lock the door! | abschließen / zu abschließen / *abzuschließen

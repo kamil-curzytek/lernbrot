@@ -48,6 +48,11 @@ export interface VocabularyProgress {
   times_incorrect: number;
   streak: number;
   difficulty: number;
+  /** FSRS memory state: days until predicted recall falls to 90 %. Null until the first scored answer. */
+  stability: number | null;
+  /** FSRS difficulty 1..10. */
+  fsrs_difficulty: number | null;
+  last_review_at: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -67,6 +72,8 @@ export interface DailySession {
   study_position: number;
   /** Quiz answers saved so far, keyed by question id. */
   quiz_draft: QuizDraft;
+  /** Set once the day's grammar items are submitted (null: not yet, or none today). */
+  grammar_completed_at: string | null;
 }
 
 export interface QuizDraft {
@@ -137,4 +144,46 @@ export interface SessionItem {
   position: number;
   progress: VocabularyProgress | null;
   grammarTopics: Pick<GrammarTopic, 'id' | 'slug' | 'title'>[];
+}
+
+// ---------------------------------------------------------------------------
+// Grammar practice (migration 0007, content/grammar/*.txt)
+// ---------------------------------------------------------------------------
+
+export type GrammarCategory =
+  | 'case' | 'gender' | 'verb_form' | 'word_order' | 'adjective_ending' | 'preposition'
+  | 'pronoun' | 'negation' | 'tense' | 'mood' | 'other';
+
+export interface GrammarSkillRow {
+  id: number;
+  topic_id: number;
+  slug: string;
+  title: string;
+  category: GrammarCategory;
+  requires: number[];
+  item_count: number;
+  sort_order: number;
+}
+
+export interface GrammarProgress {
+  user_id: string;
+  skill_id: number;
+  status: 'learning' | 'familiar' | 'strong';
+  studied_at: string;
+  streak: number;
+  stability: number | null;
+  fsrs_difficulty: number | null;
+  last_review_at: string | null;
+  next_review_at: string;
+  times_correct: number;
+  times_incorrect: number;
+}
+
+export interface GrammarAnswerRow {
+  id: string;
+  skill_id: number;
+  item_id: string;
+  is_correct: boolean;
+  error_category: GrammarCategory;
+  created_at: string;
 }

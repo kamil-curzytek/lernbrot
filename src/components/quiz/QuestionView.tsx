@@ -63,7 +63,7 @@ export function QuestionView({ question: q, answer, onAnswer }: Props) {
 
       {answered && (
         <div className={`feedback ${ok ? 'ok' : 'no'}`} role="status">
-          {ok ? '✓ Correct' : <>✗ The answer is <strong lang="de">{q.correctAnswer}</strong></>}
+          {ok ? '✓ Correct' : <>✗ The answer is <strong lang="de">{q.correctAnswer}</strong>{q.hint && <div className="rule-note">{q.hint}</div>}</>}
         </div>
       )}
     </div>

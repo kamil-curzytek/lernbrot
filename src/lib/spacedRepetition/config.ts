@@ -1,21 +1,24 @@
 export interface SpacedRepetitionConfig {
-  /** Days until the next review after the 1st, 2nd, 3rd… consecutive correct answer. */
-  intervalsDays: number[];
+  /** Recall probability at which a word is due again (FSRS "requested retention"). 0.9 = review when ~10 % would be forgotten. */
+  requestRetention: number;
+  /** Longest gap between two reviews, in days. */
+  maximumIntervalDays: number;
   /** Days until the next review after an incorrect answer. 1 = tomorrow. */
   lapseIntervalDays: number;
   /** On an incorrect answer the streak is multiplied by this and floored (0 = full reset). */
   lapseStreakFactor: number;
-  /** Streak at which a word counts as familiar / strong. */
+  /** Streak at which a word counts as familiar / strong (shown in the UI, drives question difficulty). */
   familiarAtStreak: number;
   strongAtStreak: number;
-  /** Difficulty (0..maxDifficulty) moves by these amounts; used to rank reviews. */
+  /** Legacy 0..maxDifficulty counter, kept for the "often wrong" signals in the UI. */
   difficultyOnCorrect: number;
   difficultyOnIncorrect: number;
   maxDifficulty: number;
 }
 
 export const DEFAULT_SR_CONFIG: SpacedRepetitionConfig = {
-  intervalsDays: [1, 2, 4, 7, 14, 30, 60],
+  requestRetention: 0.9,
+  maximumIntervalDays: 1825,
   lapseIntervalDays: 1,
   lapseStreakFactor: 0.5,
   familiarAtStreak: 2,

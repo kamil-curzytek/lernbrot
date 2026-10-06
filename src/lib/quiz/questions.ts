@@ -1,7 +1,7 @@
 // Question builders. Each returns null when it cannot produce a question with
 // exactly one defensible answer; the generator then tries another type.
 
-import { CEFR_LEVELS, type VocabularyWord } from '../../types';
+import { CEFR_LEVELS, type Article, type VocabularyWord } from '../../types';
 import { shuffle, type Rng } from './random';
 import {
   blankOut,
@@ -49,6 +49,8 @@ export interface QuizQuestion {
   /** Normalized accepted answers (typed) or the exact correct option (choice). */
   accepted: string[];
   correctAnswer: string;
+  /** Extra feedback after a wrong answer, e.g. a reliable gender rule. */
+  hint?: string;
 }
 
 const OPTION_COUNT = 4;
@@ -188,6 +190,22 @@ export function buildEnDeTyped(word: VocabularyWord, pool: readonly VocabularyWo
   return typed(word, 'en_de_typed', 'Type the German word.', word.english, displayGerman(word), accepted, helper);
 }
 
+// Endings that predict the article almost without exception (99–100 % on the curriculum's 2,194 nouns;
+// research/grammar-strategy). Less reliable rules (-e, -er, -um, -nis) are deliberately not shown.
+const GENDER_RULES: [RegExp, string, Article][] = [
+  [/ung$/, '-ung', 'die'], [/heit$/, '-heit', 'die'], [/keit$/, '-keit', 'die'], [/schaft$/, '-schaft', 'die'],
+  [/tät$/, '-tät', 'die'], [/ion$/, '-ion', 'die'], [/ismus$/, '-ismus', 'der'],
+];
+
+/** "Words ending in -ung are always die." when a reliable rule fits the noun (and agrees with it). */
+export function genderHint(word: Pick<VocabularyWord, 'german' | 'article'>): string | undefined {
+  const head = word.german.toLowerCase().split(/[\s-]/).pop() ?? '';
+  for (const [rx, ending, article] of GENDER_RULES) {
+    if (rx.test(head) && word.article === article) return `Tip: nouns ending in ${ending} are ${article}.`;
+  }
+  return undefined;
+}
+
 export function buildArticle(word: VocabularyWord): QuizQuestion | null {
   if (word.part_of_speech !== 'noun' || !word.article) return null;
   return {
@@ -202,6 +220,7 @@ export function buildArticle(word: VocabularyWord): QuizQuestion | null {
     options: ['der', 'die', 'das'],
     accepted: [word.article],
     correctAnswer: word.article,
+    hint: genderHint(word),
   };
 }
 

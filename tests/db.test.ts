@@ -2,10 +2,12 @@
 // SQL functions the app and the cloud job call, together with the TypeScript
 // quiz engine and spaced repetition, through the MVP definition-of-done loop.
 import type { PGlite } from '@electric-sql/pglite';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { buildSubmission, generateQuiz, type QuizQuestion } from '../src/lib/quiz';
 import type { ProgressSnapshot } from '../src/lib/spacedRepetition';
-import { addDays, localDate, zonedMidnight } from '../src/lib/time';
+import { addDays, daysBetween, localDate, zonedMidnight } from '../src/lib/time';
 import type { VocabularyWord } from '../src/types';
 import { asUser, createTestDb, createUser } from './helpers/db';
 
@@ -163,14 +165,20 @@ describe('MVP definition of done: the daily loop', () => {
     const { quiz } = await takeQuiz(userId, day2.id, day2Now, 0);
     const levelOf = new Map(quiz.map((q) => [q.wordId, q.level]));
     for (const id of day1Missed) expect(levelOf.get(id)).toBeLessThanOrEqual(2);
+    // words recognised once must now be recalled (typed), not recognised again
     const known = reviewIds.filter((id) => !day1Missed.includes(id));
-    expect(Math.max(...known.map((id) => levelOf.get(id)!))).toBeGreaterThanOrEqual(2);
+    for (const id of known) expect(levelOf.get(id)).toBeGreaterThanOrEqual(3);
 
-    // correct twice in a row -> familiar, 2-day interval
+    // correct twice in a row -> familiar; FSRS memory state stored and the gap grows beyond a day
     const p = await asUser(db, userId, () => one('select * from vocabulary_progress where word_id = $1', [known[0]]));
     expect(p.status).toBe('familiar');
     expect(p.streak).toBe(2);
-    expect(new Date(p.next_review_at).getTime()).toBe(zonedMidnight(addDays(tomorrow, 2), TZ).getTime());
+    expect(p.stability).toBeGreaterThan(1.3);
+    expect(p.fsrs_difficulty).toBeGreaterThanOrEqual(1);
+    expect(p.last_review_at).not.toBeNull();
+    const gap = daysBetween(tomorrow, localDate(TZ, new Date(p.next_review_at)));
+    expect(gap).toBeGreaterThanOrEqual(2);
+    expect(new Date(p.next_review_at).getTime()).toBe(zonedMidnight(addDays(tomorrow, gap), TZ).getTime());
   });
 
   it('the job leaves an audit trail', async () => {
@@ -197,6 +205,58 @@ describe('daily session selection adapts to the learner', () => {
     await seedProgress(u, ids, '2026-01-01T00:00:00Z');
     const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
     expect([s.review_word_count, s.new_word_count, s.total_word_count]).toEqual([8, 2, 10]);
+  });
+
+  it('due reviews: the word most likely forgotten comes first (lowest FSRS predicted recall)', async () => {
+    const u = await createUser(db);
+    const ids = (await rows(`select id from vocabulary_words where cefr_level = 'A1' order by id limit 15`)).map((r) => r.id);
+    await seedProgress(u, ids, '2026-01-01T00:00:00Z');
+    // all equally overdue; the last word (by id) has by far the weakest memory
+    await db.query(`update vocabulary_progress set stability = 100, fsrs_difficulty = 5, last_review_at = now() - interval '3 days' where user_id = $1`, [u]);
+    await db.query(`update vocabulary_progress set stability = 0.5 where user_id = $1 and word_id = $2`, [u, ids[14]]);
+    const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    const reviews = await rows(`select word_id from daily_session_words where session_id = $1 and kind = 'review' order by position`, [s.id]);
+    expect(reviews.length).toBe(9);
+    expect(reviews[0].word_id).toBe(ids[14]); // picked first, although only 9 of the 15 due words fit
+  });
+
+  it('a submission without memory state (app from before the update) is accepted and keeps the stored state', async () => {
+    const u = await createUser(db);
+    const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    const words = await rows('select word_id from daily_session_words where session_id = $1', [s.id]);
+    const ids = words.map((w) => w.word_id);
+    await db.query(
+      `insert into vocabulary_progress (user_id, word_id, status, streak, stability, fsrs_difficulty, last_review_at, last_seen_at, next_review_at)
+       values ($1, $2, 'learning', 1, 9.5, 4, now() - interval '9 days', now() - interval '9 days', now() - interval '1 day')`,
+      [u, ids[0]],
+    );
+    const at = new Date(Date.now() + 86400_000).toISOString();
+    const answers = JSON.stringify(ids.map((word_id) => ({ word_id, question_type: 'de_en', user_answer: 'x', correct_answer: 'x', is_correct: true })));
+    const legacy = JSON.stringify(ids.map((word_id) => ({ word_id, status: 'learning', streak: 1, difficulty: 0, next_review_at: at })));
+    await asUser(db, u, () => db.query('select submit_quiz($1, 10, $2::jsonb, $3::jsonb)', [s.id, answers, legacy]));
+    const kept = await one('select * from vocabulary_progress where user_id = $1 and word_id = $2', [u, ids[0]]);
+    expect(kept.stability).toBe(9.5);
+    expect(kept.fsrs_difficulty).toBe(4);
+    const fresh = await one('select * from vocabulary_progress where user_id = $1 and word_id = $2', [u, ids[1]]);
+    expect(fresh.stability).toBeNull();
+    expect(fresh.last_review_at).toBeNull();
+  });
+
+  it('migration 0006 gives existing progress an FSRS memory state from its old schedule (idempotent)', async () => {
+    const u = await createUser(db);
+    const [w] = (await rows(`select id from vocabulary_words where cefr_level = 'A1' order by id limit 1`)).map((r) => r.id);
+    await seedProgress(u, [w], new Date(Date.now() + 4 * 86400_000).toISOString()); // seen 3 days ago, due in 4 -> 7-day interval
+    await db.query(`update vocabulary_progress set difficulty = 4 where user_id = $1`, [u]);
+    const migration = readFileSync(join(import.meta.dirname, '..', 'supabase', 'migrations', '20261006000006_fsrs.sql'), 'utf8');
+    await db.exec(migration);
+    await db.exec(migration);
+    // re-running 0006 replaced functions that later migrations redefine: restore the latest versions
+    const dir = join(import.meta.dirname, '..', 'supabase', 'migrations');
+    for (const f of readdirSync(dir).sort()) if (f > '20261006000006_fsrs.sql' && !f.includes('cron')) await db.exec(readFileSync(join(dir, f), 'utf8'));
+    const p = await one('select * from vocabulary_progress where user_id = $1', [u]);
+    expect(p.stability).toBe(7);
+    expect(p.fsrs_difficulty).toBeCloseTo(3 + 0.7 * 4);
+    expect(p.last_review_at).toEqual(p.last_seen_at);
   });
 
   it('busy day (1-2x the target due) -> 9 review + 1 new', async () => {
@@ -334,8 +394,8 @@ describe('security (RLS + privileges)', () => {
     const s = await asUser(db, bob, () => one('select * from create_my_daily_session()'));
     const { items } = await loadSession(bob, s.id);
     const ans = (ids: number[]) => JSON.stringify(ids.map((word_id) => ({ word_id, question_type: 'de_en', user_answer: 'x', correct_answer: 'x', is_correct: true })));
-    const sched = (ids: number[], at = new Date(Date.now() + 86400_000).toISOString()) =>
-      JSON.stringify(ids.map((word_id) => ({ word_id, status: 'learning', streak: 1, difficulty: 0, next_review_at: at })));
+    const sched = (ids: number[], at = new Date(Date.now() + 86400_000).toISOString(), extra: Record<string, unknown> = {}) =>
+      JSON.stringify(ids.map((word_id) => ({ word_id, status: 'learning', streak: 1, difficulty: 0, next_review_at: at, stability: 1.3, fsrs_difficulty: 5, ...extra })));
     const ids = items.map((i) => i.word.id);
     const call = (a: string, sc: string) => asUser(db, bob, () => db.query('select submit_quiz($1, 10, $2::jsonb, $3::jsonb)', [s.id, a, sc]));
 
@@ -343,6 +403,11 @@ describe('security (RLS + privileges)', () => {
     await expect(call(ans([...ids.slice(0, 9), 9999]), sched(ids))).rejects.toThrow(/exactly once/);
     await expect(call(ans(ids), sched(ids, '2020-01-01T00:00:00Z'))).rejects.toThrow(/invalid schedule/);
     await expect(call(ans(ids), sched(ids, '2099-01-01T00:00:00Z'))).rejects.toThrow(/invalid schedule/);
+    // the FSRS memory state must be complete and within bounds
+    const tomorrowIso = new Date(Date.now() + 86400_000).toISOString();
+    await expect(call(ans(ids), sched(ids, tomorrowIso, { stability: null }))).rejects.toThrow(/invalid schedule/);
+    await expect(call(ans(ids), sched(ids, tomorrowIso, { stability: 0 }))).rejects.toThrow(/invalid schedule/);
+    await expect(call(ans(ids), sched(ids, tomorrowIso, { fsrs_difficulty: 11 }))).rejects.toThrow(/invalid schedule/);
     // nothing was stored by the failed attempts
     expect((await asUser(db, bob, () => rows('select * from quiz_attempts'))).length).toBe(0);
     await expect(call(ans(ids), sched(ids))).resolves.toBeTruthy();
@@ -447,5 +512,128 @@ describe('words per day: 5 to 50 in steps of 5', () => {
     const { quiz, attempt } = await takeQuiz(u, s.id, new Date(), 5);
     expect(quiz).toHaveLength(50);
     expect(attempt.score).toBe(45);
+  });
+});
+
+// ---------------------------------------------------------------------------
+
+describe('grammar practice (migration 0007)', () => {
+  const study = (u: string, ids: number[]) => asUser(db, u, () => one('select record_grammar_study($1::int[]) as n', [ids]));
+  const skillsOf = async (topicSlug: string) =>
+    (await rows(`select s.id from grammar_skills s join grammar_topics t on t.id = s.topic_id where t.slug = $1 order by s.id`, [topicSlug])).map((r) => r.id);
+
+  it('seeds a grammar skill for every lesson topic', async () => {
+    const n = await one(`select count(*)::int as n from grammar_topics t where not exists (select 1 from grammar_skills s where s.topic_id = t.id)`);
+    expect(n.n).toBe(0);
+    expect((await one('select count(*)::int as n from grammar_skills')).n).toBeGreaterThanOrEqual(60);
+  });
+
+  it('studying a skill puts it in the reviews from tomorrow (local midnight); repeating changes nothing', async () => {
+    const u = await createUser(db);
+    const [a, b] = await skillsOf('dative');
+    expect((await study(u, [a, b])).n).toBe(2);
+    expect((await study(u, [a])).n).toBe(0);
+    const p = await one('select * from grammar_progress where user_id = $1 and skill_id = $2', [u, a]);
+    const today = localDate(TZ, new Date());
+    expect(new Date(p.next_review_at).getTime()).toBe(zonedMidnight(addDays(today, 1), TZ).getTime());
+    expect(p.stability).toBeNull();
+    await expect(study(u, [])).rejects.toThrow(/invalid skills/);
+    await expect(study(u, [9999])).rejects.toThrow(/unknown skill/);
+    await expect(asUser(db, null, () => db.query('select record_grammar_study($1::int[])', [[a]]))).rejects.toThrow(/permission denied/);
+  });
+
+  it('due skills join the daily session: at most 3, one per topic first, nothing if none is due', async () => {
+    const u = await createUser(db);
+    const dative = await skillsOf('dative');
+    const acc = await skillsOf('accusative');
+    const art = await skillsOf('articles');
+    await study(u, [...dative, ...acc, ...art]);
+    // nothing due yet (first review is tomorrow) -> no grammar today
+    const s0 = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    expect((await rows('select * from daily_session_grammar where session_id = $1', [s0.id])).length).toBe(0);
+    // make all due for tomorrow's session
+    await db.query(`update grammar_progress set next_review_at = now() - interval '1 day' where user_id = $1`, [u]);
+    const tomorrow = addDays(localDate(TZ, new Date()), 1);
+    const s1 = await one('select * from create_daily_session_for($1, $2)', [u, tomorrow]);
+    const g = await rows(
+      `select sg.skill_id, s.topic_id from daily_session_grammar sg join grammar_skills s on s.id = sg.skill_id
+        where sg.session_id = $1 order by sg.position`, [s1.id]);
+    expect(g.length).toBe(3);
+    expect(new Set(g.map((x) => x.topic_id)).size).toBe(3); // mixed: three different lessons
+    // vocabulary is unaffected: grammar is extra to the words-per-day target
+    expect(s1.total_word_count).toBe(10);
+  });
+
+  it('grammar answers can be saved for resume, but only for skills of that session', async () => {
+    const u = await createUser(db);
+    const [skill] = await skillsOf('perfekt');
+    await study(u, [skill]);
+    await db.query(`update grammar_progress set next_review_at = now() - interval '1 day' where user_id = $1`, [u]);
+    const s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+    const save = (q: string) => asUser(db, u, () => db.query('select save_session_progress($1, null, $2, $3)', [s.id, q, 'x']));
+    await save(`g${skill}:2`);
+    const draft = (await one('select quiz_draft from daily_sessions where id = $1', [s.id])).quiz_draft;
+    expect(draft.answers[`g${skill}:2`]).toBe('x');
+    await expect(save('g1011:1')).rejects.toThrow(/invalid answer/); // not in this session
+    await expect(save('gxx:1')).rejects.toThrow(/invalid answer/);
+  });
+
+  describe('submit_grammar_review', () => {
+    let u: string;
+    let s: Row;
+    let skills: number[];
+    const entry = (skill_id: number, over: Record<string, unknown> = {}) => ({
+      skill_id, item_id: `${skill_id}:1`, user_answer: 'dem', correct_answer: 'dem', is_correct: true, error_category: 'case',
+      status: 'learning', streak: 1, stability: 1.3, fsrs_difficulty: 5,
+      next_review_at: new Date(Date.now() + 2 * 86400_000).toISOString(), ...over,
+    });
+    const submit = (entries: unknown[]) =>
+      asUser(db, u, () => one('select submit_grammar_review($1, $2::jsonb) as n', [s.id, JSON.stringify(entries)]));
+
+    beforeAll(async () => {
+      u = await createUser(db);
+      skills = [...(await skillsOf('dative')).slice(0, 1), ...(await skillsOf('accusative')).slice(0, 1)];
+      await study(u, skills);
+      await db.query(`update grammar_progress set next_review_at = now() - interval '1 day' where user_id = $1`, [u]);
+      s = await asUser(db, u, () => one('select * from create_my_daily_session()'));
+      const inSession = (await rows('select skill_id from daily_session_grammar where session_id = $1 order by position', [s.id])).map((r) => r.skill_id);
+      expect(inSession.sort()).toEqual([...skills].sort());
+    });
+
+    it('rejects incomplete, foreign or out-of-range entries', async () => {
+      await expect(submit([entry(skills[0])])).rejects.toThrow(/exactly once/);
+      await expect(submit([entry(skills[0]), entry(1011)])).rejects.toThrow(/exactly once/);
+      await expect(submit([entry(skills[0], { item_id: `${skills[0]}:99` }), entry(skills[1])])).rejects.toThrow(/invalid grammar entries/);
+      await expect(submit([entry(skills[0], { item_id: `${skills[1]}:1` }), entry(skills[1])])).rejects.toThrow(/invalid grammar entries/);
+      await expect(submit([entry(skills[0], { error_category: 'spelling' }), entry(skills[1])])).rejects.toThrow(/invalid grammar entries/);
+      await expect(submit([entry(skills[0], { stability: 0 }), entry(skills[1])])).rejects.toThrow(/invalid grammar entries/);
+      await expect(submit([entry(skills[0], { next_review_at: '2020-01-01T00:00:00Z' }), entry(skills[1])])).rejects.toThrow(/invalid grammar entries/);
+      expect((await asUser(db, u, () => rows('select * from grammar_answers'))).length).toBe(0);
+    });
+
+    it('stores answers with their category, updates the FSRS state, and only once', async () => {
+      const score = await submit([entry(skills[0]), entry(skills[1], { is_correct: false, user_answer: 'den', streak: 0 })]);
+      expect(score.n).toBe(1);
+      const answers = await asUser(db, u, () => rows('select * from grammar_answers order by skill_id'));
+      expect(answers.length).toBe(2);
+      expect(answers.every((a) => a.error_category === 'case')).toBe(true);
+      const p = await one('select * from grammar_progress where user_id = $1 and skill_id = $2', [u, skills[0]]);
+      expect(p.stability).toBeCloseTo(1.3);
+      expect(p.times_correct).toBe(1);
+      expect(p.last_review_at).not.toBeNull();
+      const p2 = await one('select * from grammar_progress where user_id = $1 and skill_id = $2', [u, skills[1]]);
+      expect(p2.times_incorrect).toBe(1);
+      expect((await one('select grammar_completed_at from daily_sessions where id = $1', [s.id])).grammar_completed_at).not.toBeNull();
+      await expect(submit([entry(skills[0]), entry(skills[1])])).rejects.toThrow(/already submitted/);
+    });
+
+    it('other users cannot read grammar progress, answers or session grammar', async () => {
+      const other = await createUser(db);
+      expect((await asUser(db, other, () => rows('select * from grammar_progress'))).length).toBe(0);
+      expect((await asUser(db, other, () => rows('select * from grammar_answers'))).length).toBe(0);
+      expect((await asUser(db, other, () => rows('select * from daily_session_grammar'))).length).toBe(0);
+      await expect(asUser(db, other, () => db.query('select submit_grammar_review($1, $2::jsonb)', [s.id, '[]']))).rejects.toThrow(/session not found/);
+      await expect(asUser(db, u, () => db.query(`insert into grammar_progress (user_id, skill_id, next_review_at) values ($1, 1011, now())`, [u]))).rejects.toThrow(/permission denied/);
+    });
   });
 });

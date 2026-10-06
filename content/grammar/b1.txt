@@ -1,0 +1,159 @@
+# B1 grammar skills. Format: see scripts/build-grammar.mjs. Append new exercises at the END of a skill.
+
+## 3011 | genitive | case | des …(e)s, der: whose?
+rule: Genitive (whose?): des + noun + -(e)s for der/das words (des Mannes, des Autos), der for die words and plural (der Frau, der Kinder). Spoken German often uses von + dative instead.
+c | Das ist das Auto ___ Chefs. | That's the boss's car. | der / *des / dem
+c | Die Farbe ___ Wohnung gefällt mir. | I like the colour of the flat. | des / *der / die
+c | Der Name ___ Kindes ist Lena. | The child's name is Lena. | der / *des / dem
+c | Das Ende ___ Films war traurig. | The end of the film was sad. | *des / der / den
+c | Die Meinung ___ Eltern ist wichtig. | The parents' opinion is important. | die / *der / den | Plural genitive: der.
+c | Am Anfang ___ Woche bin ich müde. | At the beginning of the week I'm tired. | des / *der / dem
+c | Das ist die Tasche meines ___. | That's my brother's bag. | Bruder / *Bruders / Brudern
+c | Das Büro ___ Direktorin ist im 3. Stock. | The director's office is on the 3rd floor. | des / *der / dem
+t | Das ist das Haus meines ___. (Vater) | That's my father's house. | Vaters
+t | Die Adresse des ___ steht auf dem Brief. (Hotel) | The hotel's address is on the letter. | Hotels
+
+## 3012 | genitive | preposition | wegen, trotz, während, statt + genitive
+rule: wegen (because of), trotz (despite), während (during), statt (instead of) + genitive: wegen des Wetters, trotz des Regens, während der Arbeit. Spoken German often uses the dative: wegen dem Wetter.
+c | ___ des Regens bleiben wir zu Hause. | Because of the rain we're staying at home. | Trotz / *Wegen / Während
+c | ___ des Regens gehen wir spazieren. | Despite the rain we're going for a walk. | *Trotz / Wegen / Statt
+c | ___ der Arbeit darf man nicht telefonieren. | You're not allowed to make calls during work. | Wegen / Trotz / *Während
+c | Wegen ___ Streiks fährt kein Zug. | Because of the strike no trains are running. | der / *des / dem
+c | Trotz ___ Verspätung haben wir den Anschluss bekommen. | Despite the delay we made the connection. | des / *der / die
+c | ___ eines Autos kaufe ich ein Fahrrad. | Instead of a car I'm buying a bike. | Wegen / *Statt / Während
+c | Während ___ Urlaubs habe ich viel gelesen. | During the holiday I read a lot. | der / *des / dem
+c | Wegen ___ Krankheit konnte sie nicht kommen. | Because of an illness she couldn't come. | eines / *einer / einem
+c | Trotz ___ schlechten Wetters war es schön. | Despite the bad weather it was nice. | der / *des / dem
+c | Der Laden ist ___ Umbaus geschlossen. | The shop is closed because of renovation. | trotz / *wegen / statt
+
+## 3021 | relative-clauses | pronoun | der, die, das, den, dem: which relative pronoun?
+rule: The relative pronoun takes its gender/number from the noun it refers to and its case from its role in the relative clause: der Mann, der … (subject), den ich kenne (object), dem ich helfe (dative).
+c | Das ist der Mann, ___ neben mir wohnt. | That's the man who lives next to me. | *der / den / dem
+c | Das ist die Frau, ___ ich gestern gesehen habe. | That's the woman I saw yesterday. | der / *die / den
+c | Das ist das Buch, ___ ich lese. | That's the book I'm reading. | *das / dem / den
+c | Der Kollege, ___ ich helfe, ist neu. | The colleague I'm helping is new. | der / den / *dem | helfen + dative → dem.
+c | Wo ist der Schlüssel, ___ ich gestern gekauft habe? | Where's the key I bought yesterday? | der / *den / dem
+c | Die Kinder, ___ im Garten spielen, sind laut. | The children playing in the garden are noisy. | den / *die / denen
+c | Die Leute, mit ___ ich arbeite, sind nett. | The people I work with are nice. | die / den / *denen | Dative plural relative pronoun: denen.
+c | Das ist die Firma, bei ___ ich arbeite. | That's the company I work for. | die / *der / dem
+c | Der Mann, ___ Auto vor dem Haus steht, ist mein Nachbar. | The man whose car is in front of the house is my neighbour. | der / *dessen / deren
+c | Die Frau, ___ Sohn in meiner Klasse ist, ist Ärztin. | The woman whose son is in my class is a doctor. | dessen / *deren / der
+
+## 3022 | relative-clauses | word_order | verb at the end of the relative clause
+rule: A relative clause is a subordinate clause: the conjugated verb goes to the end: …, der neben mir wohnt.
+requires: 3021, 2021
+o | das ist der Kollege, / der / mir / immer / hilft | That's the colleague who always helps me.
+o | ich suche eine Wohnung, / die / nicht so teuer / ist | I'm looking for a flat that isn't so expensive.
+o | das ist das Restaurant, / das / ich / dir / empfohlen habe | That's the restaurant I recommended to you.
+o | der Film, / den / wir / gesehen haben, / war super | The film we watched was great.
+o? | kennst du die Frau, / mit der / Anna / spricht | Do you know the woman Anna is talking to?
+o | das ist der Bus, / der / zum Bahnhof / fährt | That's the bus that goes to the station.
+o | die Stadt, / in der / ich / wohne, / ist klein | The town I live in is small.
+o | ich habe einen Freund, / der / in Wien / lebt | I have a friend who lives in Vienna.
+o | das ist alles, / was / ich / weiß | That's all I know.
+o | das Paket, / das / gestern / gekommen ist, / ist für dich | The parcel that came yesterday is for you.
+
+## 3031 | passive-present | verb_form | werden + participle: Das Paket wird geliefert.
+rule: Passive = werden + past participle at the end: Das Haus wird gebaut. Focus on what happens, not who does it. By someone: von + dative.
+c | Das Paket ___ morgen geliefert. | The parcel will be delivered tomorrow. | ist / *wird / werden
+c | Die Briefe ___ jeden Tag verschickt. | The letters are sent every day. | wird / *werden / sind
+c | Hier ___ Deutsch gesprochen. | German is spoken here. | *wird / werden / ist
+c | Die Straße wird ___. | The road is being repaired. | repariert werden / *repariert / reparieren
+t | Das Essen wird gerade ___. (kochen) | The food is being cooked right now. | gekocht
+t | Die Rechnung wird per E-Mail ___. (schicken) | The bill is sent by email. | geschickt
+t | Der Antrag wird vom Amt ___. (prüfen) | The application is checked by the office. | geprüft
+o | die Wohnung / wird / nächste Woche / renoviert | The flat will be renovated next week. | also: nächste Woche / wird / die Wohnung / renoviert
+c | Die Kinder werden von der Lehrerin ___. | The children are picked up by the teacher. | abholen / *abgeholt / holt ab
+o | in Deutschland / wird / viel Brot / gegessen | A lot of bread is eaten in Germany. | also: viel Brot / wird / in Deutschland / gegessen
+
+## 3032 | passive-present | tense | passive in the past: wurde + participle
+rule: Passive past: wurde + participle (Das Haus wurde 1990 gebaut). Perfekt: ist … worden (Das Haus ist renoviert worden).
+requires: 3031
+c | Das Haus ___ 1985 gebaut. | The house was built in 1985. | wird / *wurde / war
+c | Die Fenster ___ letzte Woche geputzt. | The windows were cleaned last week. | wurde / *wurden / werden
+c | Der Brief ist gestern geschickt ___. | The letter was sent yesterday. | geworden / *worden / wurde | Passive Perfekt: worden (not geworden).
+c | Wann ___ die Stadt gegründet? | When was the city founded? | *wurde / wird / ist
+t | Mein Fahrrad wurde ___. (stehlen) | My bike was stolen. | gestohlen
+t | Die Prüfung wurde ___. (verschieben) | The exam was postponed. | verschoben
+c | Die Rechnung ___ schon bezahlt worden. | The bill has already been paid. | wurde / *ist / hat
+t | Das Problem wurde schnell ___. (lösen) | The problem was solved quickly. | gelöst / geloest
+c | Wir ___ vom Bahnhof abgeholt. | We were picked up from the station. | wurde / *wurden / werden
+c | Der Termin ist abgesagt ___. | The appointment has been cancelled. | *worden / geworden / werden
+
+## 3041 | konjunktiv-ii | mood | wishes and hypotheticals: hätte, wäre, würde
+rule: Unreal or hypothetical: hätte (had), wäre (would be), könnte (could), and for most other verbs würde + infinitive. Wenn ich Zeit hätte, würde ich kommen.
+c | Wenn ich Zeit ___, würde ich mitkommen. | If I had time, I'd come along. | habe / *hätte / würde
+c | Wenn ich reich ___, würde ich reisen. | If I were rich, I'd travel. | bin / *wäre / hätte
+c | Ich ___ gern in Berlin wohnen. | I'd like to live in Berlin. | *würde / wäre / hätte
+c | An deiner Stelle ___ ich zum Arzt gehen. | In your place I'd go to the doctor. | *würde / wäre / werde
+c | Wenn es nicht so teuer ___, würden wir es kaufen. | If it weren't so expensive, we'd buy it. | ist / *wäre / würde
+c | Ich ___ dir gern helfen, aber ich habe keine Zeit. | I'd like to help you, but I don't have time. | *würde / hätte / werde
+c | Es ___ schön, wenn du kommen könntest. | It would be nice if you could come. | würde / *wäre / hätte
+c | Wenn ich du ___, würde ich das nicht machen. | If I were you, I wouldn't do that. | würde / *wäre / bin
+c | Wenn wir ein Auto ___, könnten wir an den See fahren. | If we had a car, we could drive to the lake. | haben / *hätten / wären
+c | ___ ich doch mehr Zeit! | If only I had more time! | *Hätte / Wäre / Würde
+
+## 3042 | konjunktiv-ii | mood | advice and polite suggestions: solltest, könntest, würde
+rule: Advice: Du solltest … (you should). Suggestion: Wir könnten … (we could). Polite: Würden/Könnten Sie …?
+c | Du ___ mehr schlafen. | You should sleep more. | *solltest / sollst / würdest | Advice: solltest (Konjunktiv II of sollen).
+c | Wir ___ am Wochenende ins Kino gehen. | We could go to the cinema at the weekend. | können / *könnten / würden
+c | ___ Sie mir bitte sagen, wie spät es ist? | Could you tell me what time it is, please? | Können / *Könnten / Konnten
+c | Sie ___ einen Termin beim Facharzt machen. | You should make an appointment with a specialist. | *sollten / sollen / würden
+c | Was ___ du an meiner Stelle machen? | What would you do in my place? | wirst / *würdest / wärst
+c | Man ___ das Formular online ausfüllen. | You could fill in the form online. | *könnte / konnte / könnt
+c | Ihr ___ früher losfahren. | You (all) should leave earlier. | *solltet / solltest / sollen
+c | ___ du mir das erklären? | Could you explain that to me? | *Könntest / Konntest / Könnten
+c | Es ___ besser, wenn wir warten. | It would be better if we waited. | würde / *wäre / hätte
+c | Ich ___ an deiner Stelle nicht so viel Geld ausgeben. | In your place I wouldn't spend so much money. | *würde / werde / wäre
+
+## 3051 | purpose-clauses | other | damit or um … zu?
+rule: Same subject in both parts: um … zu + infinitive (Ich lerne, um die Prüfung zu bestehen). Different subjects: damit + verb at the end (Ich erkläre es, damit du es verstehst).
+c | Ich lerne Deutsch, ___ in Deutschland zu arbeiten. | I'm learning German in order to work in Germany. | damit / *um
+c | Ich spreche langsam, ___ du mich verstehst. | I'm speaking slowly so that you understand me. | *damit / um | Different subjects (ich / du) → damit.
+c | Wir sparen, ___ ein Auto zu kaufen. | We're saving to buy a car. | damit / *um
+c | Sie gibt mir den Schlüssel, ___ ich in die Wohnung kann. | She gives me the key so that I can get into the flat. | *damit / um
+c | Er steht früh auf, ___ pünktlich zu sein. | He gets up early to be on time. | damit / *um
+c | Ich schreibe es auf, ___ ich es nicht vergesse. | I'm writing it down so that I don't forget it. | *damit / um
+o | ich gehe zum Bürgeramt, / um / mich / anzumelden | I'm going to the citizens' office to register.
+o | ich erkläre es dir, / damit / du / es / verstehst | I'm explaining it to you so that you understand it.
+o | wir fahren früh los, / um / den Zug / nicht zu verpassen | We're leaving early so as not to miss the train.
+c | Ich brauche das Formular, ___ den Antrag zu stellen. | I need the form to submit the application. | damit / *um
+
+## 3061 | two-part-conjunctions | other | sowohl … als auch, weder … noch, entweder … oder …
+rule: sowohl … als auch (both … and), entweder … oder (either … or), weder … noch (neither … nor), nicht nur … sondern auch (not only … but also), zwar … aber (admittedly … but).
+c | Ich spreche sowohl Polnisch ___ Deutsch. | I speak both Polish and German. | oder / *als auch / noch
+c | Wir fahren entweder mit dem Zug ___ mit dem Auto. | We're going either by train or by car. | *oder / noch / als auch
+c | Ich habe weder Zeit ___ Lust. | I have neither time nor inclination. | oder / *noch / aber
+c | Sie ist nicht nur nett, ___ auch klug. | She's not only nice but also clever. | aber / *sondern / als
+c | Die Wohnung ist zwar klein, ___ günstig. | The flat is small, admittedly, but cheap. | *aber / sondern / noch
+c | ___ du kommst mit, oder du bleibst hier. | Either you come along or you stay here. | *Entweder / Weder / Sowohl
+c | Er hat ___ angerufen noch geschrieben. | He neither called nor wrote. | entweder / *weder / sowohl
+c | Je mehr ich lerne, ___ besser verstehe ich. | The more I learn, the better I understand. | *desto / als / umso mehr
+c | Das Hotel ist ___ teuer als auch laut. | The hotel is both expensive and noisy. | *sowohl / weder / entweder
+c | Ich trinke ___ Kaffee noch Tee. | I drink neither coffee nor tea. | *weder / entweder / sowohl
+
+## 3071 | plusquamperfekt | tense | hatte/war + participle: what had happened before
+rule: Plusquamperfekt = hatte or war (same choice as in the Perfekt) + participle. It describes what had already happened before another past event, often with nachdem.
+c | Als ich ankam, ___ der Zug schon abgefahren. | When I arrived, the train had already left. | hatte / *war / ist
+c | Nachdem wir gegessen ___, gingen wir spazieren. | After we had eaten, we went for a walk. | waren / *hatten / haben
+c | Ich ___ den Schlüssel vergessen und kam nicht rein. | I had forgotten the key and couldn't get in. | war / *hatte / habe
+c | Sie ___ schon nach Hause gegangen. | She had already gone home. | hatte / *war / hat
+c | Nachdem er umgezogen ___, suchte er Arbeit. | After he had moved, he looked for work. | hatte / *war / ist
+t | Ich hatte die Mail schon ___, als du anriefst. (schreiben) | I had already written the email when you called. | geschrieben
+t | Wir waren noch nie in Wien ___. (sein) | We had never been to Vienna. | gewesen
+c | Bevor ich nach Deutschland kam, ___ ich schon Deutsch gelernt. | Before I came to Germany, I had already learned German. | *hatte / war / habe
+t | Er hatte den Termin ___. (vergessen) | He had forgotten the appointment. | vergessen
+c | Als der Arzt kam, ___ das Fieber schon gesunken. | When the doctor came, the fever had already gone down. | hatte / *war / wurde
+
+## 3081 | n-declension | case | den Kollegen, dem Nachbarn: masculine nouns with -n
+rule: Some masculine nouns (often people and animals ending in -e, -ent, -ist, -and; also Herr, Mensch, Nachbar) add -(e)n in every case except the nominative singular: der Kollege → den/dem/des Kollegen.
+c | Ich frage den ___. | I'm asking my colleague. | Kollege / *Kollegen / Kolleges
+c | Kennst du den neuen ___? | Do you know the new student? | Student / *Studenten / Students
+c | Wir helfen unserem ___. | We're helping our neighbour. | Nachbar / *Nachbarn / Nachbars
+c | Der ___ wohnt im ersten Stock. | The neighbour lives on the first floor. | *Nachbar / Nachbarn / Nachbarns | Nominative singular: no -n.
+c | Ich habe mit ___ Müller gesprochen. | I spoke to Mr Müller. | Herr / *Herrn / Herren
+c | Das ist das Büro des ___. | That's the president's office. | Präsident / *Präsidenten / Präsidents
+c | Der Arzt untersucht den ___. | The doctor is examining the patient. | Patient / *Patienten / Patients
+c | Sehr geehrter ___ Schmidt, … | Dear Mr Schmidt, … | *Herr / Herrn / Herren | Letter opening: nominative → Herr.
+c | Jeder ___ ist anders. | Every person is different. | *Mensch / Menschen / Menschens
+c | Wir fragen einen ___. | We're asking an expert. | Experte / *Experten / Expertes

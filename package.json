@@ -15,7 +15,8 @@
     "@supabase/supabase-js": "^2.117.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "react-router-dom": "^7.18.4"
+    "react-router-dom": "^7.18.4",
+    "ts-fsrs": "^5.4.2"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.8",

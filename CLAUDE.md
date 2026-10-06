@@ -13,7 +13,8 @@ npx vitest run tests/quiz.test.ts            # single file
 npx vitest run -t "submit_quiz"              # tests matching a name
 npm run typecheck      # tsc --noEmit (also run by npm run build)
 npm run build          # static site in dist/
-npm run seed:build     # content/*.json -> supabase/seed/content.sql (run after editing content)
+node scripts/build-grammar.mjs   # content/grammar/*.txt -> content/grammar-skills.json, validates every exercise
+npm run seed:build     # content/*.json (+ grammar skills) -> supabase/seed/content.sql (run after editing content)
 ```
 
 Research pipeline (run from `research/`, Python; source corpora in `research/sources/` are git-ignored for licensing):
@@ -29,11 +30,15 @@ Full order from scratch: `goethe.py → frequencies.py → candidates.py → bui
 
 ## App architecture
 
-- **Business logic is split deliberately between SQL and the browser.** Daily word selection lives only in Postgres (`create_daily_session_for` in `supabase/migrations/…0002_functions.sql`, adaptive new-word rule in `…0005`), shared by the app RPC `create_my_daily_session()` and the hourly pg_cron job `run_daily_learning_job()`. Quiz generation/grading (`src/lib/quiz`, seeded by session id so it's identical across devices) and spaced-repetition scheduling (`src/lib/spacedRepetition`) run in the browser; results are submitted to `submit_quiz()`, which validates them and writes attempt + answers + progress in one transaction.
+- **Business logic is split deliberately between SQL and the browser.** Daily word selection lives only in Postgres (`create_daily_session_for` in `supabase/migrations/…0002_functions.sql`, adaptive new-word rule in `…0005`), shared by the app RPC `create_my_daily_session()` and the hourly pg_cron job `run_daily_learning_job()`. Quiz generation/grading (`src/lib/quiz`, seeded by session id so it's identical across devices) and spaced-repetition scheduling (`src/lib/spacedRepetition`, FSRS-6 via `ts-fsrs`; memory state `stability`/`fsrs_difficulty`/`last_review_at` per word, migration 0006) run in the browser; results are submitted to `submit_quiz()`, which validates them and writes attempt + answers + progress in one transaction.
 - **Security model:** RLS on every table; all table privileges are revoked from `anon`/`authenticated` and re-granted minimally (select own rows, update own profile settings columns). Every other write goes through `security definer` RPCs using `auth.uid()`. Only the anon key is used client-side (`.env.production` holds the public URL + anon key for the Pages build); the service_role key must never appear in the repo or a `VITE_` var.
 - **Session resume:** `daily_sessions.study_position` / `quiz_draft`, written by `save_session_progress` after each card/answer. `update_daily_target` (5–50, steps of 5) rebuilds today's session only if it hasn't been started.
 - **Frontend:** HashRouter + `base: './'` (works on any static host/sub-path). `src/services/*` wrap supabase-js calls; `src/pages` are routes. `main.tsx` waits for `authReady()` (from `src/lib/supabase/client.ts`) before rendering so password-recovery / email-link tokens in the URL are processed first.
 - **DB tests** (`tests/helpers/db.ts`) execute the real migrations + seed on PGlite with a stub for Supabase's `auth` schema, `auth.uid()` (via `request.jwt.claim.sub`), roles and default grants. Any migration file containing `cron` is skipped. New migrations are picked up automatically in filename order.
+
+## Grammar practice
+
+Lessons live in `content/grammar.json`; exercises in `content/grammar/{a1,a2,b1,b2}.txt` (DSL documented at the top of `scripts/build-grammar.mjs`), compiled to `content/grammar-skills.json` (committed; `tests/grammar.test.ts` fails if it is stale) and lazily imported by `src/lib/grammar`. Skill ids are `<topicId><n>` and exercise ids `<skillId>:<position>`, so never renumber; append. The DB only knows skills (`grammar_skills`, seeded) and per-user `grammar_progress` (FSRS state); `create_daily_session_for` adds up to 3 due skills to `daily_session_grammar` (extra to the word target), the client picks the exercise deterministically (`pickItem`) and submits via `submit_grammar_review`. Grammar draft answers use question ids `g<skillId>:<n>` in `save_session_progress`.
 
 ## Database change workflow
 
