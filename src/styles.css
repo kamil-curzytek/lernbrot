@@ -79,6 +79,16 @@ button, input, select { font: inherit; color: inherit; }
 .narrow { max-width: 520px; margin: 0 auto; }
 
 .account { margin-left: auto; flex-shrink: 0; }
+
+.footer { text-align: center; padding: 0 16px 28px; font-size: 0.875rem; }
+.footer a { color: var(--muted); text-decoration: none; }
+.footer a:hover, .footer a.active { color: var(--ink); text-decoration: underline; }
+
+.about details > summary { cursor: pointer; font-weight: 650; font-size: 1.05rem; list-style-position: inside; }
+.about details[open] > summary { margin-bottom: 12px; }
+.about details ul { margin: 0 0 0.75rem; padding-left: 1.2rem; }
+.about details li + li { margin-top: 4px; }
+.about details > p:last-child { margin-bottom: 0; }
 .signout { padding: 6px 10px; font-size: 0.92rem; }
 
 @media (max-width: 560px) {

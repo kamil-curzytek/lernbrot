@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { emailLinkError, supabase } from '../lib/supabase/client';
 import { appUrl, MIN_PASSWORD_LENGTH, sendPasswordReset } from '../services/authService';
 
@@ -95,6 +96,11 @@ export default function AuthPage() {
           </button>
         </form>
         <p className="muted small center">Your progress is saved to your account, so it follows you to any device.</p>
+        <p className="small center">
+          <Link to="/about" className="muted">
+            About Lernbrot
+          </Link>
+        </p>
       </div>
     </div>
   );

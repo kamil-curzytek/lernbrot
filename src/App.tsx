@@ -4,6 +4,7 @@ import type { Session } from '@supabase/supabase-js';
 import { AppContext } from './AppContext';
 import { AppShell } from './components/layout/AppShell';
 import { isSupabaseConfigured, openedFromPasswordResetLink, supabase } from './lib/supabase/client';
+import About from './pages/About';
 import AuthPage from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import DailyLesson from './pages/DailyLesson';
@@ -49,7 +50,21 @@ function AuthedApp() {
   }, [userId]);
 
   if (session === undefined) return <div className="loading">Loading…</div>;
-  if (!session) return <AuthPage />;
+  if (!session) {
+    return (
+      <Routes>
+        <Route
+          path="/about"
+          element={
+            <main className="main">
+              <About />
+            </main>
+          }
+        />
+        <Route path="*" element={<AuthPage />} />
+      </Routes>
+    );
+  }
   if (recovering) return <ResetPassword email={session.user.email} onDone={() => setRecovering(false)} />;
   if (profileError) {
     return (
@@ -82,6 +97,7 @@ function AuthedApp() {
           <Route path="/vocabulary" element={<Vocabulary />} />
           <Route path="/review" element={<Review />} />
           <Route path="/progress" element={<Progress />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AppShell>

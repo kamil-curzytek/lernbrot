@@ -52,6 +52,11 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main className="main">{children}</main>
+      <footer className="footer">
+        <NavLink to="/about" className={({ isActive }) => (isActive ? 'active' : undefined)}>
+          About Lernbrot
+        </NavLink>
+      </footer>
     </div>
   );
 }
