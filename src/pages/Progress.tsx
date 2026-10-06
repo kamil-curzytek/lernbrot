@@ -5,6 +5,7 @@ import { useAsync } from '../hooks/useAsync';
 import { browserTimeZone } from '../lib/time';
 import { getDashboardStats } from '../services/progressService';
 import { DailyTargetPicker } from '../components/dashboard/DailyTargetPicker';
+import { ChangePassword } from '../components/progress/ChangePassword';
 import { updateDailyTarget, updateSettings } from '../services/profileService';
 import { listAttempts } from '../services/quizService';
 import { CEFR_LEVELS, type CefrLevel } from '../types';
@@ -130,11 +131,14 @@ export default function Progress() {
         {message && <div className="notice">{message}</div>}
       </section>
 
-      <div className="row">
-        <span className="muted small">Signed in as {user.email}</span>
-        <span className="spacer" />
-        <button className="btn" onClick={signOut}>Sign out</button>
-      </div>
+      <section className="card stack">
+        <h2>Account</h2>
+        <p className="muted small" style={{ margin: 0 }}>Signed in as {user.email}</p>
+        {user.email && <ChangePassword email={user.email} />}
+        <div>
+          <button className="btn btn-ghost" style={{ paddingLeft: 0 }} onClick={signOut}>Sign out</button>
+        </div>
+      </section>
     </div>
   );
 }
